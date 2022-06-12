@@ -1,5 +1,6 @@
 \documentclass[12pt, a4paper, oneside, UTF8]{ctexbook}
-\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs, tikz}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs, tikz, tabularx, float}
+\usepackage{booktabs}
 \usepackage{subfiles}
 \usepackage{geometry} % 页边距
 \geometry{a4paper,scale=0.75}
@@ -18,6 +19,8 @@
 colorlinks=true,
 linkcolor=black,
 citecolor=black,
+anchorcolor=gray,
+urlcolor=gray,
 }
 
 % 罗马字符
@@ -67,6 +70,9 @@ citecolor=black,
 \renewcommand {\thetable} {\thechapter{}.\arabic{table}}
 \renewcommand {\thefigure} {\thechapter{}.\arabic{figure}}
 
+\newcounter{rownumbers}
+\newcommand\rownumber{\stepcounter{rownumbers}\arabic{rownumbers}}
+
 % =======================================================================
 \begin{document}
 % \captionsetup{labelformat=default,labelsep=space} %去除图表冒号
@@ -87,6 +93,60 @@ citecolor=black,
 
 \chapter{蒙特卡洛(MC)}
 \par{
+    蒙特卡罗方法（Monte Carlo,MC）是一种使用随机数（或者更常见的伪随机数）来数值求解计算问题的方法。其基本思想是首先建立一个概率（或随机过程）模型，使它的参数等于问题的解，然后通过对模型（或过程）的抽样来获取有关参数的解的近似值及精度估计\upcite{XJH-80}。
+
+    问题在于，在对热力学系统进行计算机实验时，我们不可能，也没有必要对体系所有的构象态进行遍历，而只需要考虑有代表性的有限的状态进行统计平均即可。因此不能考虑进行全状态空间的简单平均采样，而是需要使用重要性采样算法（important sampling method），如Metropolis算法。
+
+    \section{Metropolis算法}
+
+    \begin{definition}
+        细致平衡（detailed balance）：\\
+        When equilibrium is reached in a reaction system (containing an arbitrary number of components and reaction paths), as many atoms,in their respective molecular.entities will pass forward. as well as backwards.along each individual path in a given finite time interval.Accordingly, the reaction.path in the reverse direction must in every detail be the reverse of the reaction.path in the forward direction (provided always that the system is at equilibrium). The principle of detailed balancing is a consequence for macroscopic systems of the principle of microscopic\upcite{Muller+1994+1077+1184}.
+        简言之，细致平衡保证了系统在平衡状态下，不同态之间的跃迁应该满足时间反演对称性，即两者的跃迁几率应该相等。\\        
+        而在随机过程理论中，细致平衡条件关系到一个随机过程的可逆性。这和动力学过程或者信息的熵产生，生成元和转移半群的谱性质都有很重要的联系。在计算机模拟的时候，细致平衡条件保证了用势能$U(x)$的梯度构造的马尔科夫链蒙特卡洛过程（MCMC）的不变分布是Boltzmann分布。
+    \end{definition}
+
+    在有且仅有一个稳态分布的条件下，\href{https://www.zhihu.com/question/63305712/answer/1804780073}{Matroplis-Hastings 算法}可以产生满足细致平衡的Markov链。对于可逆Markov过程有：
+    \begin{align}
+        \pi\left(s^{\prime}\right) P\left(s^{\prime} \mid s\right)=\pi(s) P\left(s \mid s^{\prime}\right)
+    \end{align}
+    因此，对于给定的任意提议分布$q(j|i)$，我们可以通过\href{https://blog.csdn.net/lin360580306/article/details/51240398}{ Matroplis 算法}构造其对应的满足细致平稳性的概率分布。具体做法为，对于不满足细致平衡条件的分布$\pi(i) q(j \mid i) \neq \pi(j) q(i \mid j)$，可以定义其对应的接受概率（acceptance probability）$\alpha(j \mid i)=\pi(j) q(i \mid j)$，而后使不等式两侧相乘，即可构造等式：
+    \begin{align}
+        \pi(i) q(j \mid i) \alpha(j \mid i)=\pi(j) q(i \mid j) \alpha(i \mid j)
+        \label{Tran-P}
+    \end{align}
+    其中$q(j \mid i) \alpha(j \mid i)$视为新的转移概率。
+
+    但是Metropolis算法构造出的接受概率可能会很小，这样造成算法要经过很多的迭代才能到达平稳分布。为了满足细致平稳，不等式的两边都乘以了一个小的接受概率，那我们可以把其中一个接受概率乘以一个数变为1，另外一边的接受概率也乘上相同的倍数，即可得到 Metropolis-Hastings 算法。既有：
+    \begin{gather}
+        \pi(i) q(j \mid i) \alpha(j \mid i)=\pi(j) q(i \mid j) \alpha(i \mid j) \nonumber \\
+        \pi(i) q(j \mid i) \pi(j) q(i \mid j)=\pi(j) q(i \mid j) \pi(i) q(j \mid i) \\
+        \pi(i) q(j \mid i) \frac{\pi(j) q(i \mid j)}{\pi(i) q(j \mid i)}=\pi(j) q(i \mid j) \quad
+        \text { or } \quad
+        \pi(i) q(j \mid i)=\pi(j) q(i \mid j) \frac{\pi(i) q(j \mid i)}{\pi(j) q(i \mid j)} \nonumber
+    \end{gather}
+    对比公式\eqref{Tran-P}，可以得到：
+    \begin{align}
+        \alpha(j \mid i)=\min \left\{\frac{\pi(j) q(i \mid j)}{\pi(i) q(j \mid i)}, 1\right\}
+        \label{accept-P}
+    \end{align}
+
+    因此具体算法流程为：    
+    \begin{table}[H]
+        \centering
+        \begin{tabularx}{\textwidth}{lXXX r}
+            \\\toprule
+            \rownumber. & 当前的状态$i$；\\
+            \rownumber. & 从提议分布$q(j|i)$中产生新的状态$j$。\\
+            \rownumber. & 根据公式\eqref{accept-P}计算接受概率;\\
+            \rownumber. & 从$[0,1]$区间中抽样出一个数据点（均匀分布）$u \thicksim U[0,1]$;\\
+            \rownumber. & 将随机生成的数和接受率对比，如果$u<\alpha$,状态就从$i$跳转到$j$，否则继续保留在状态$i$。
+            \\\bottomrule
+        \end{tabularx}%
+        \label{tab:addlabel}%
+        \caption{Metropolis-Hastings 算法流程}
+    \end{table}%
+
 
 }
 
