@@ -1,0 +1,95 @@
+\documentclass[12pt, a4paper, oneside, UTF8]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs, tikz}
+\usepackage{subfiles}
+\usepackage{geometry} % 页边距
+\geometry{a4paper,scale=0.75}
+\usepackage{ulem} % 下划线控制
+\usepackage{fancyhdr} % 页面页眉页脚控制
+\usepackage{xcolor} % 颜色控制
+\usepackage{cite} % 导入引用的包，能够使用\cite
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+\usepackage{gbt7714}
+\usepackage{setspace} % 目录控制
+% 图注控制
+\usepackage{caption}
+\captionsetup{labelformat=default,labelsep=space} %去除图表冒号
+
+\hypersetup{ % 超链接颜色控制
+colorlinks=true,
+linkcolor=black,
+citecolor=black,
+}
+
+% 罗马字符
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\title{{\Huge{\textbf{蒙特卡洛方法与模拟退火}}}}
+\author{赵胜达}
+\date{2022 年 6 月}
+% \linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\pagestyle{fancy} % 页眉页脚控制
+\lhead{}
+\chead{}
+
+\setlength{\baselineskip}{1.7em} % 行间距
+\setlength{\parindent}{2em}
+\setlength{\parskip}{1em}
+\setlength{\headheight}{16pt}
+
+\ctexset{ % 各级别标题设置
+    section = {
+    format={\flushleft \sffamily \heiti \zihao {3}},
+    beforeskip={24pt},afterskip={6pt},},
+    subsection = {
+    format={\flushleft\sffamily\heiti\zihao{4}},
+    beforeskip={12pt},afterskip={6pt},}
+}
+
+% 目录控制
+% \titlecontents{chapter}[4em]{\bfseries \zihao{4}}{\contentslabel{4em}}{\hspace*{-4em}}{~\titlerule*[0.6pc]{$.$}~\contentspage}
+% \titlecontents{section}[4em]{\bfseries \zihao{-4}}{\contentslabel{4em}}{\hspace*{-4em}}{~\titlerule*[0.6pc]{$.$}~\contentspage}
+
+% 颜色控制
+\definecolor{lightgrayblue}{rgb}{0.30,0.30,0.50}
+\definecolor{darkgreen}{RGB}{0,182,150}
+
+% 图标编号
+\renewcommand {\thetable} {\thechapter{}.\arabic{table}}
+\renewcommand {\thefigure} {\thechapter{}.\arabic{figure}}
+
+% =======================================================================
+\begin{document}
+% \captionsetup{labelformat=default,labelsep=space} %去除图表冒号
+
+\maketitle
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+\newpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\begin{spacing}{0.5}
+    \tableofcontents
+\end{spacing}
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\chapter{蒙特卡洛(MC)}
+\par{
+
+}
+
+\bibliographystyle{gbt7714-numerical} % 参考文献排版风格
+\bibliography{ref} % 导入lib，ref为“ref.lib"的文件名
+\end{document}
