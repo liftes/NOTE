@@ -1,0 +1,396 @@
+\documentclass[12pt, a4paper, oneside, UTF8]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs, tikz}
+\usepackage{subfiles}
+\usepackage{geometry} % 页边距
+\geometry{a4paper,scale=0.75}
+\usepackage{ulem} % 下划线控制
+\usepackage{fancyhdr} % 页面页眉页脚控制
+\usepackage{xcolor} % 颜色控制
+\usepackage{cite} % 导入引用的包，能够使用\cite
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+\usepackage{gbt7714}
+\usepackage{setspace} % 目录控制
+% 图注控制
+\usepackage{caption}
+\captionsetup{labelformat=default,labelsep=space} %去除图表冒号
+
+\hypersetup{ % 超链接颜色控制
+colorlinks=true,
+linkcolor=black,
+citecolor=black,
+}
+
+% 罗马字符
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\title{{\Huge{\textbf{pair correlation function}}}}
+\author{赵胜达}
+\date{2022 年 3 月}
+% \linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\pagestyle{fancy} % 页眉页脚控制
+\lhead{}
+\chead{}
+
+\setlength{\baselineskip}{1.7em} % 行间距
+\setlength{\parindent}{2em}
+\setlength{\parskip}{1em}
+\setlength{\headheight}{16pt}
+
+\ctexset{ % 各级别标题设置
+    section = {
+    format={\flushleft \sffamily \heiti \zihao {3}},
+    beforeskip={24pt},afterskip={6pt},},
+    subsection = {
+    format={\flushleft\sffamily\heiti\zihao{4}},
+    beforeskip={12pt},afterskip={6pt},}
+}
+
+% 目录控制
+% \titlecontents{chapter}[4em]{\bfseries \zihao{4}}{\contentslabel{4em}}{\hspace*{-4em}}{~\titlerule*[0.6pc]{$.$}~\contentspage}
+% \titlecontents{section}[4em]{\bfseries \zihao{-4}}{\contentslabel{4em}}{\hspace*{-4em}}{~\titlerule*[0.6pc]{$.$}~\contentspage}
+
+% 颜色控制
+\definecolor{lightgrayblue}{rgb}{0.30,0.30,0.50}
+\definecolor{darkgreen}{RGB}{0,182,150}
+
+% 图标编号
+\renewcommand {\thetable} {\thechapter{}.\arabic{table}}
+\renewcommand {\thefigure} {\thechapter{}.\arabic{figure}}
+
+% =======================================================================
+\begin{document}
+% \captionsetup{labelformat=default,labelsep=space} %去除图表冒号
+
+\maketitle
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+\newpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\begin{spacing}{0.5}
+    \tableofcontents
+\end{spacing}
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\chapter{对关联函数与结构因子}
+\par{
+    聚合物的大小可以通过各种散射实验（光散射，小角度X射线散射和中子散射等）来测量。假设聚合物由在任意$R$处的一系列散射单元组成，这些单元具有散射振幅$a$。且散射向量$k\equiv k_f-k_i$（$k_i$和$k_f$是入射和散射光束的波矢量）处的散射强度写为:
+    \begin{align}
+        \sum_{n, m=1}^{N_{0}} a_{n} a^{*}_{m} \exp \left[\mathrm{i} \boldsymbol{k} \cdot\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)\right]
+    \end{align}
+    其中$N_0$表示系统的全部散射单元数。特别的，对于均质的聚合物，其各单元的散射强度相同，即上式可写为：
+    \begin{align}
+        |a|^{2} \sum_{n, m=1}^{N_{0}} \exp \left[i \bm{k} \cdot\left(\bm{R}_{n}-\bm{R}_{m}\right)\right]
+    \end{align}
+    由此我们可以定义{\color{darkgreen}结构因子$g(\bm{k})$}为与系统大小（即$N_0$）无关的变量，即表示无限大系统中单个散射单元对散射的贡献。具体表示为：
+    \begin{align}
+        g(\boldsymbol{k}) \equiv \frac{1}{N_{0}} \sum_{n, m}^{N_{0}}\left\langle\exp \left[\mathrm{i} \boldsymbol{k} \cdot\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)\right]\right\rangle
+        \label{g-defined}
+    \end{align}
+
+    类似的，我们可以讨论密度函数和结构因子的关系。对$N$个粒子组成的系统，可以定义密度函数如下：
+    \begin{align}
+        \rho(\bm{r}) = \sum_{n=1}^N \delta^3(\bm{r}-\bm{r}_n)
+    \end{align}
+    而考虑两个密度场之间的相互作用，则有：
+    \begin{align}
+        \begin{split}
+            \frac{1}{N_0}\int {\rm d}^{3} \bm{x} \rho(\bm{x})\rho(\bm{x}+\bm{r})
+            &=\frac{1}{N_0} \sum_{m,n=1}^{N} \int {\rm d}^{3} \bm{x} \delta^{3}\left(\bm{x}-\bm{r}_{n}\right) \delta^{3}\left(\bm{x}-\bm{r}_{m}+\bm{r}\right)\\
+            &=\frac{1}{N} \sum_{m,n=1}^{N} \delta^{3}\left(\bm{r}-\bm{r}_{m}+\bm{r}{r}_{n}\right)\\
+            &=g(\bm{r})+\delta^{3}(\bm{r})
+        \end{split}
+    \end{align}
+    其中$\delta^{3}(\bm{r})$表示当$m=n$时的附加影响，既有$\left\langle \hat{\rho}(\bm{r}) \hat{\rho}\left(\bm{r}^{\prime}\right) \right\rangle =g(\bm{r})$。
+
+    考虑到$\left\langle \hat{\rho}(\bm{r}) \hat{\rho}\left(\bm{r}^{\prime}\right) \right\rangle$作为配分函数的二阶矩，其在计算自洽场附近的高斯涨落时需要使用，因此需要计算各类理想链的结构因子。
+}
+
+\chapter{各类聚合物模型的结构因子}
+\section{理想链的结构因子}
+\par{
+    在理想模型中，我们暂时不考虑聚合物之间的影响，即考虑无限稀溶液。并引入聚合物段数$N$以替代$N_0$，引入公式\eqref{g-defined}即可得到\upcite{Doi1986TheTO}：
+    \begin{align}
+        g(\boldsymbol{k}) \equiv \frac{1}{N} \sum_{n, m}^{N}\left\langle\exp \left[\mathrm{i} \boldsymbol{k} \cdot\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)\right]\right\rangle=\frac{1}{N} \sum_{n, m}\left\langle\frac{\sin \left(|\boldsymbol{k}|\left|\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right|\right)}{|\boldsymbol{k}|\left|\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right|}\right\rangle
+        \label{g-sin}
+    \end{align}
+    上式中的恒等变换在数学上成立，方法为引入球坐标替换笛卡尔空间坐标系，既有以下等式关系：
+    \begin{align}
+        \begin{split}
+            A(\bm{k})=&\int \mathrm{d} \bm{r} \exp (-\mathrm{i} k \cdot \boldsymbol{r}) \tilde{\psi}(\bm{r})\\
+            =&\int_{0}^{\infty} \mathrm{d} r \, r^{2} \int_{0}^{\pi} \mathrm{d} \theta \sin \theta \int_{0}^{2 \pi} \mathrm{d} \phi \exp (-\mathrm{i} k r \cos \theta) \tilde{\psi}(\bm{r}) \\
+            =&\int_{0}^{\infty} \mathrm{d} r 4 \pi r^{2} \frac{\sin k r}{k r} \tilde{\psi}(\bm{r})\\
+            =&\left\langle\frac{\sin k r}{k r}\right\rangle_{\tilde{\psi}}
+        \end{split}
+    \end{align}
+    其中势能函数$\tilde{\psi}(\bm{r})$只与$\bm{r}$的大小$r$有关，在公式\eqref{g-sin}中有$\tilde{\psi}(\bm{r})=1$，而还有：
+    \begin{align}
+        \langle\ldots\rangle_{\tilde{\psi}}=\int_{0}^{\infty} \mathrm{d} r 4 \pi r^{2} \tilde{\psi}(r) \ldots
+    \end{align}
+    
+    而通常我们关心的有效散射都集中在小波区间内，即$k \rightarrow 0$。因此可以继续对上式进行展开，得到：
+    \begin{align}
+        \begin{split}
+            g(k) &=\frac{1}{N} \sum_{n, m}\left\langle 1-\frac{1}{6} k^{2}\left(R_{n}-R_{m}\right)^{2}+\ldots\right\rangle \\
+            &=N\left(1-\frac{1}{3} k^{2} R_{g}^{2}+\ldots\right)
+        \end{split}
+    \end{align}
+    其中$R_g$为均方回转半径，且有$R_{g}^{2} \equiv \frac{1}{2 N^{2}} \sum_{n, m=1}^{N}\left\langle\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)^{2}\right\rangle$。
+}
+
+\section{高斯链的结构因子}
+\par{
+    而对于线性高斯链，我们可求其回转半径：
+    \begin{align}
+        \begin{split}
+            R_{g}^{2} & \equiv \frac{1}{2 N^{2}} \sum_{n, m=1}^{N}\left\langle\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)^{2}\right\rangle \\
+            &=\frac{1}{2 N^{2}} \sum_{n=1}^{N} \sum_{m=1}^{N}|n-m| b^{2}=\frac{1}{2 N^{2}} \int_{0}^{N} \mathrm{d} n \int_{0}^{N} \mathrm{d} m|n-m| b^{2} \\ 
+            &=\frac{1}{N^{2}} \int_{0}^{N} \mathrm{d} n \int_{0}^{n} \mathrm{d} m(n-m) b^{2}=\frac{1}{6} N b^{2} 
+        \end{split}
+    \end{align}
+    数学上还有\upcite{Doi1986TheTO}${\rm ^{2.\uppercase\expandafter{\romannumeral1}.20}}$：
+    \begin{align}
+        \begin{split}
+            \left\langle\exp \left[\mathrm{i} \bm{k} \cdot\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)\right]\right\rangle &=\left\langle\exp \left[\sum_{\alpha=x, y, z} \mathrm{i} k_{\alpha}\left(R_{n \alpha}-R_{m \alpha}\right)\right]\right\rangle \\
+            &=\exp \left[-\frac{1}{2} \sum_{\alpha=x, y, z} k_{\alpha}^{2}\left\langle\left(R_{m \alpha}-R_{n \alpha}\right)^{2}\right\rangle\right]\\
+            &=\exp \left[-\frac{b^{2} \boldsymbol{k}^{2}}{6}|n-m|\right]
+            \label{g-Gaussian-part}
+        \end{split}
+    \end{align}
+    其中有$\left\langle\left(R_{m \alpha}-R_{n \alpha}\right)^{2}\right\rangle=|m-n| b^{2}/3$，将公式\eqref{g-Gaussian-part}代入定义式\eqref{g-defined}进而得到：
+    \begin{gather}
+        g(k)=\frac{1}{N} \int_{0}^{N} \mathrm{d} n \int_{0}^{N} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right]=N f\left(k^{2} R_{g}^{2}\right)
+        \label{g-Gaussian} \\
+        f(x)=\frac{2}{x^{2}}\left(\mathrm{e}^{-x}-1+x\right)
+    \end{gather}
+    \footnotesize{\color{lightgrayblue}
+    附：上式的详细推导如下。首先定义有：
+    \begin{align*}
+        \frac{b^2}{6} k^2 = \frac{R_g^2}{N} k^2 \equiv \frac{x}{N}
+    \end{align*}
+    一般地，数学上可计算积分：
+    \begin{gather*}
+        \int \mathrm{d}m \mathrm{e}^{-xm} = -\frac{1}{x} \mathrm{e}^{-xm}\\
+        \int \mathrm{d}m \mathrm{e}^{xm} = \frac{1}{x} \mathrm{e}^{xm}
+    \end{gather*}
+    代入公式\eqref{g-Gaussian}有：
+    \begin{align*}
+        g(k)=&\frac{1}{N} \int_{0}^{N} \mathrm{d} n \int_{0}^{N} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right]\\
+        =&\frac{1}{N} \int_{0}^{N} \mathrm{d} n \int_{0}^{N} \mathrm{d} m \exp \left[-\frac{x}{N}|n-m|\right]\\
+        \text{(积分上限变换)}=&\frac{N}{x^2} [
+            \int_0^n \mathrm{d}m \int_0^x \mathrm{d}n \exp(-n+m) ~\text{if}(n>m)\\
+            &+\int_0^m \mathrm{d}n \int_0^x \mathrm{d}m \exp(-m+n) ~\text{if}(n  \leq  m)
+        ]\\
+        \text{(重新定义哑指标统一两积分)}=&\frac{2N}{x^2}
+        \int_0^x \mathrm{d}n \mathrm{~e}^{-n} \int_0^n \mathrm{d}m \mathrm{~e}^{m}\\
+        =&\frac{2N}{x^2}
+        \int_0^x \mathrm{d}n \mathrm{~e}^{-n} [\mathrm{~e}^n - 1]\\
+        =&\frac{2N}{x^2}
+        \int_0^x \mathrm{d}n ~(1 - \mathrm{e}^{-n})\\
+        =&\frac{2N}{x^2} (x+\mathrm{e}^{-x}-1)
+    \end{align*}
+    （将求和表达式按照爱因斯坦求和约定写出来之后，用来求和的指标，叫做哑指标。）
+    }
+}
+
+\section{二嵌段聚合物}
+\par{
+    假设聚合物仍然符合线性高斯链模型，区别在于聚合物整体由A、B两种不同结构的片段单元依次连接而成。设聚合物总片段数为$N$，其中A组分有连续的$n_A$段，B组分有连续的$n_B$段，显然有$N=n_A+n_B$。并定义组分比$f=n_A/N$。
+
+    由于依旧采用高斯链的基本模型，因此上一节中关于均方根半径的推导依然成立。即公式\eqref{g-Gaussian}依然适用，通过调整积分区间即可计算A、B两不同组分结构间的结构因子为：
+    \begin{align}
+        \label{g-AB}
+        \begin{split}
+            g(k)=&\frac{1}{N} \int_{0}^{Nf} \mathrm{d} n \int_{Nf}^{N} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] \\
+            =&\frac{1}{N} \int_{0}^{Nf} \mathrm{d}n \int_{Nf}^{N} \mathrm{d}m \exp \left[\frac{x}{N}(n-m)\right] ~(n<m)\\
+            =&\frac{N}{x^2} \int_{0}^{xf} \mathrm{d}n \int_{xf}^{x} \mathrm{d}m \exp \left[n-m\right]\\
+            =&\frac{N}{x^2} \int_{0}^{xf} \mathrm{d}n ~\mathrm{e}^n
+            \int_{xf}^{x} \mathrm{d}m ~\mathrm{e}^{-m}\\
+            =&\frac{N}{x^2} (\mathrm{e}^{xf} - 1) \times
+            (\mathrm{e}^{-xf} - \mathrm{e}^{-x}) \\
+            =&\frac{N}{x^2} (\mathrm{e}^{-x} - \mathrm{e}^{-xf}
+            - \mathrm{e}^{-x(1-f)} + 1) \\
+            =&\frac{N}{x^2} (\mathrm{e}^{-x} - 2\mathrm{e}^{-x/2} +1)
+            ~(\text{when}~ f=1/2)\\
+            =&NF(x)
+        \end{split}
+    \end{align}
+    \begin{gather}
+        F(x) = \frac{1}{x^2} (\mathrm{e}^{-x} - 2\mathrm{e}^{-x/2} +1) \\
+        F^{f}(x) = \frac{1}{x^2} (\mathrm{e}^{-x} - \mathrm{e}^{-xf}
+        - \mathrm{e}^{-x(1-f)} + 1)
+    \end{gather}
+
+    而考虑二嵌段聚合物整体的结构因子时，应有：
+    \begin{gather}
+        \label{C-factors}
+        C(x) = C_{AA}(x)+C_{BB}(x)+C_{AB}(x)+C_{BA}(x)\\
+        C_{AA}(x) = g_D(x)\\
+        C_{BB}(x) = g_D(x)\\
+        C_{AB}(x) = C_{BA}(x) = F(x)
+    \end{gather}
+    其中有$g_D(x)=2(xf+\mathrm{e}^{-xf}-1)/x^2$为一般高斯链的结构因子。
+
+    \footnotesize{\color{lightgrayblue}
+    附注：结构因子的推导与均方回转半径$R_g$的定义严格相关，一般地，均选取整条高分子链的均方回转半径代入公式中进行推导计算。如理想单高斯链便有$\frac{b^2}{6} k^2 = \frac{R_g^2}{N} k^2 \equiv \frac{x}{N}$。特别地，在文献中\upcite{ZhangChen-14}，为统一星型聚合物和游离在溶液中的离散的短聚合物支链，我们定义每段相同组分的聚合物的片段长度为$N$，因此均方回转半径的计算也与此关联。在此条件下需要对公式\eqref{g-AB}中积分的上下限做出对应变换。既有：
+    \begin{align}
+        \begin{split}
+            g(k)=&\frac{1}{N} \int_{0}^{N} \mathrm{d} n \int_{N}^{2N} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] \\
+            =&\frac{1}{N} \int_{0}^{N} \mathrm{d}n \int_{N}^{2N} \mathrm{d}m \exp \left[\frac{x}{N}(n-m)\right] ~(n<m)\\
+            =&\frac{N}{x^2} \int_{0}^{x} \mathrm{d}n \int_{x}^{2x} \mathrm{d}m \exp \left[n-m\right]\\
+            =&\frac{N}{x^2} \int_{0}^{x} \mathrm{d}n ~\mathrm{e}^n
+            \int_{x}^{2x} \mathrm{d}m ~\mathrm{e}^{-m}\\
+            =&\frac{N}{x^2} (\mathrm{e}^{x} - 1) \times
+            (\mathrm{e}^{-x} - \mathrm{e}^{-2x}) \\
+            =&\frac{N}{x^2} (\mathrm{e}^{-2x} - 2\mathrm{e}^{-x} +1)\\
+            =&NF(x)
+        \end{split}
+    \end{align}
+    }
+}
+
+\section{支链滑动高分子}
+\par{
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[scale=1]{figure/split.png}
+        \caption{滑动聚合物示意图}
+        \label{Figure-SplitPloyer}
+    \end{figure}
+    一般地，对于含且只含有A、B两种组分的高分子体系，公式\eqref{C-factors}恒成立。如图\ref{Figure-SplitPloyer}，现在考虑高分子系统由A、B两种组分构成，且有一A组分支链可在A链条上任意滑动。其中A组分主链和支链的片段长度相等且等于B组分主链长度，既有$N_{A1}=N_{A2}=N_{B}=N/3$。现在需要考虑该高分子链的结构因子。可知分别求解$C_{AA}(x)$，$C_{BB}(x)$，$C_{AB}(x)$三个函数即可。
+
+    不妨定义$f \equiv \kappa / N_{A1}$，且$f$先取固定值，最后对其做在$[0,1]$区间上的积分。特别地，将滑动支链部分和A组分主链视为同组分的星形高分子，取编号$num=\rmnum{1},\rmnum{2},\rmnum{3}$分别表征三段不同的支链，$\rmnum{1}$表示滑动支链，$\rmnum{1}$表示主链左侧，$\rmnum{3}$表示主链右侧，可得其结构因子在形式上写为（$num_1 \neq num_2$）：
+    \begin{align}
+        C_{AA}'(x) = 3 \times 2 F^{f}_{num_1-num_2}(x) + 3 g^{f}_{D-num}(x)
+    \end{align}
+    而另一侧B组分主链视为普通线性高斯链，有结构因子：
+    \begin{align}
+        C_{BB}(x) = g^{\prime}_D(x) = \frac{2}{x^{2}}\left[\exp{(-\frac{x}{3})}-1+\frac{x}{3}\right]
+    \end{align}
+    再考虑A组分与B组分间的相互作用，依次考虑为两段长A组分与B组分构成二嵌段聚合物的结构因子，再减去两者重叠部分的结构因子即可。即有形式上写为：
+    \begin{align}
+        C_{AB}'(x) = 2F^f(x) - F^f(x)
+    \end{align}
+    其中$F_{b}(x)$表示A组分分支链与主链间相互作用产生的结构因子附加项。
+
+    即可得到以下表达式：
+    \begin{align}
+        \begin{split}
+            F^f_{\rmnum{2}-\rmnum{3}} = &\frac{1}{N^2} \int_{0}^{\kappa} \mathrm{d}n \int_{\kappa}^{N_{A1}} \mathrm{d}m \exp \left[\frac{x}{N}(n-m)\right] ~(n<m)\\
+            = &\frac{1}{x^2} \int_{0}^{\frac{fx}{3}} \mathrm{d}n \int_{\frac{fx}{3}}^{\frac{x}{3}} \mathrm{d}m \exp \left[(n-m)\right]\\
+            = &\frac{1}{x^2} \left[\exp{(-\frac{x}{3})} 
+            - \exp{(-\frac{fx}{3})}
+            - \exp{(-\frac{(1-f)x}{3})} + 1\right]\\
+            &\text{(主链A左侧-主链A右侧)}
+        \end{split}\\
+        \begin{split}
+            F^f_{\rmnum{1}-\rmnum{2}} = &\frac{1}{N^2} \int_{0}^{\kappa} \mathrm{d}n \int_{\kappa}^{\kappa+N_{A2}} \mathrm{d}m \exp \left[\frac{x}{N}(n-m)\right] ~(n<m)\\
+            = &\frac{1}{x^2} \int_{0}^{\frac{fx}{3}} \mathrm{d}n \int_{\frac{fx}{3}}^{\frac{x(1+f)}{3}} \mathrm{d}m \exp \left[(n-m)\right]\\
+            = &\frac{1}{x^2} \left[\exp{(-\frac{x(1+f)}{3})} 
+            - \exp{(-\frac{fx}{3})}
+            - \exp{(-\frac{x}{3})} + 1\right]\\
+            &\text{(主链A左侧-滑动支链)}
+        \end{split}
+    \end{align}
+    \begin{align}
+        \begin{split}
+            F^f_{\rmnum{1}-\rmnum{3}} = &\frac{1}{N^2} \int_{0}^{N_{A1}-\kappa} \mathrm{d}n \int_{N_{A1}-\kappa}^{N_{A2}+N_{A1}-\kappa} \mathrm{d}m \exp \left[\frac{x}{N}(n-m)\right] ~(n<m)\\
+            = &\frac{1}{x^2} \int_{0}^{\frac{x(1-f)}{3}} \mathrm{d}n \int_{\frac{x(1-f)}{3}}^{\frac{x(2-f)}{3}} \mathrm{d}m \exp \left[(n-m)\right]\\
+            = &\frac{1}{x^2} \left[\exp{(-\frac{x(2-f)}{3})} 
+            - \exp{(-\frac{x(1-f)}{3})}
+            - \exp{(-\frac{x}{3})} + 1\right]\\
+            &\text{(主链A右侧-滑动支链)}
+        \end{split}\\
+        \begin{split}
+            g^{}_{D-\rmnum{1}} =& \frac{2}{x^{2}}\left[\exp{(-\frac{x}{3})}-1+\frac{x}{3}\right]\\
+            &\text{(滑动支链)}
+        \end{split}\\
+        \begin{split}
+            g^{}_{D-\rmnum{2}} =& \frac{2}{x^{2}}\left[\exp{(-\frac{xf}{3})}-1+\frac{xf}{3}\right]\\
+            &\text{(主链A左侧)}
+        \end{split}\\
+        \begin{split}
+            g^{}_{D-\rmnum{3}} =& \frac{2}{x^{2}}\left[\exp{(-\frac{x(1-f)}{3})}-1+\frac{x(1-f)}{3}\right]\\
+            &\text{(主链A右侧)}
+        \end{split}
+    \end{align}
+    \begin{align}
+        \begin{split}
+            C_{AA}^{\prime}(x,f) =& 
+            2F^f_{\rmnum{2}-\rmnum{3}}
+            +2F^f_{\rmnum{1}-\rmnum{2}}
+            +2F^f_{\rmnum{1}-\rmnum{3}}
+            +g^{}_{D-\rmnum{1}}+g^{}_{D-\rmnum{2}}+g^{}_{D-\rmnum{3}} \\
+            =&\frac{2}{x^2} \left[\exp{(-\frac{x}{3})} 
+            - \exp{(-\frac{fx}{3})}
+            - \exp{(-\frac{(1-f)x}{3})} + 1\right]\\
+            &+ \frac{2}{x^2} \left[\exp{(-\frac{x(1+f)}{3})} 
+            - \exp{(-\frac{fx}{3})}
+            - \exp{(-\frac{x}{3})} + 1\right]\\
+            &+ \frac{2}{x^2} \left[\exp{(-\frac{x(2-f)}{3})} 
+            - \exp{(-\frac{x(1-f)}{3})}
+            - \exp{(-\frac{x}{3})} + 1\right]\\
+            &+\frac{2}{x^{2}}\left[\exp{(-\frac{x}{3})}-1+\frac{x}{3}\right]\\
+            &+\frac{2}{x^{2}}\left[\exp{(-\frac{xf}{3})}-1+\frac{xf}{3}\right]\\
+            &+\frac{2}{x^{2}}\left[\exp{(-\frac{x(1-f)}{3})}-1+\frac{x(1-f)}{3}\right]\\
+        \end{split}
+    \end{align}
+    \begin{align}
+        \begin{split}
+            C_{AB}^{\prime}(x,f) =  & \frac{1}{x^2} 
+            \left[\exp{(-\frac{2x}{3})} 
+            - 2 \exp{(-\frac{x}{3})} + 1\right]\\
+            &\text{(主链A-主链B)}\\
+            & + \frac{1}{x^2} 
+            \left[\exp{(-\frac{x(3-f)}{3})} 
+            -  \exp{(-\frac{x(2-f)}{3})} 
+            -  \exp{(-\frac{x}{3})} + 1\right]\\
+            &\text{(滑动支链A-部分主链A-主链B)}\\
+            & - \frac{1}{x^2} 
+            \left[\exp{(-\frac{x(2-f)}{3})} 
+            -  \exp{(-\frac{x}{3})} 
+            -  \exp{(-\frac{x(1-f)}{3})} + 1\right]\\
+            &\text{(部分主链A-主链B)}\\
+        \end{split}
+    \end{align}
+
+    考虑支链A可以滑动，既有：
+    \begin{gather}
+        C_{AA}(x) = \int_0^1 \mathrm{d}f ~ C_{AA}^{\prime}(x,f)\\
+        C_{AB}(x) = \int_0^1 \mathrm{d}f ~ C_{AB}^{\prime}(x,f)
+    \end{gather}
+
+    % 其中$F_{\kappa}(x)$表示A组分聚合物够成的“三支链”构型系统的结构因子，由于支链可滑动，其与支链位置$\kappa$有关。$F_{b}(x)$表示滑动A组分支链与B组分主链间的结构因子。
+    
+    % 不妨假设支链位于$\kappa_0$处保持静止以推导上述函数的表达式。可以得到以下方程：
+    % \begin{align}
+    %     F_{\kappa}^{\prime}(x) =& \frac{1}{N} \int_{0}^{\kappa_0} \mathrm{d} n \int_{N_0}^{N} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right]
+    %     \nonumber \\
+    %     & + \frac{1}{N} \int_{\kappa_0}^{N_{A1}} \mathrm{d} n \int_{N_0}^{N} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right]\\
+    %     F_{b}^{\prime}(x) =& \frac{1}{N} \int_{\kappa_0}^{N_{A1}} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] \text{(支链连接点后的A组分)}
+    %     \nonumber \\
+    %     & + \frac{1}{N} \int_{0}^{\kappa_0} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] \text{(支链连接点前的A组分)}
+    %     \nonumber \\
+    %     & + \frac{1}{N} \int_{N_{0}}^{N} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] \text{(支链的A组分)} \nonumber \\
+    %     = & \frac{1}{N} \int_{0}^{N_{A1}} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] 
+    %     \nonumber \\
+    %     & + \frac{1}{N} \int_{N_{0}}^{N} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] 
+    % \end{align}
+}
+
+\bibliographystyle{gbt7714-numerical} % 参考文献排版风格
+\bibliography{ref} % 导入lib，ref为“ref.lib"的文件名
+\end{document}

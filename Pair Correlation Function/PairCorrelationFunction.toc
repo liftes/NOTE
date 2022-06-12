@@ -1,0 +1,6 @@
+\contentsline {chapter}{\numberline {第一章\hspace {.3em}}对关联函数与结构因子}{1}{chapter.1}% 
+\contentsline {chapter}{\numberline {第二章\hspace {.3em}}各类聚合物模型的结构因子}{3}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}理想链的结构因子}{3}{section.2.1}% 
+\contentsline {section}{\numberline {2.2}高斯链的结构因子}{4}{section.2.2}% 
+\contentsline {section}{\numberline {2.3}二嵌段聚合物}{5}{section.2.3}% 
+\contentsline {section}{\numberline {2.4}支链滑动高分子}{7}{section.2.4}% 
