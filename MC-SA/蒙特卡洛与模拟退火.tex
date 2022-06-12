@@ -91,7 +91,7 @@ urlcolor=gray,
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
-\chapter{蒙特卡洛(MC)}
+\chapter{蒙特卡洛方法}
 \par{
     蒙特卡罗方法（Monte Carlo,MC）是一种使用随机数（或者更常见的伪随机数）来数值求解计算问题的方法。其基本思想是首先建立一个概率（或随机过程）模型，使它的参数等于问题的解，然后通过对模型（或过程）的抽样来获取有关参数的解的近似值及精度估计\upcite{XJH-80}。
 
@@ -146,8 +146,13 @@ urlcolor=gray,
         \label{tab:addlabel}%
         \caption{Metropolis-Hastings 算法流程}
     \end{table}%
+}
 
+\chapter{高分子的MC模拟模型}
+\par{
+    高分子聚合物是由大量的重复单元组成的大分子。然而，高分子物理关注的是不依赖于单体具体化学构造的聚合物统计性质。因此它从远大于单体间距而远小于链长的尺度着手，把由单体连接的链看成由粗粒化的链节连接的链，每个链节代表实际高分子链中一个较长的链段，这就是所谓的链的粗粒化。而在高分子模拟的建模上，也有格子链模型（1attice chain model）与非格子链模型（off-1attice chain model）两类。而在链的生成方式上，又分无规行走（random walk,RW）（不考虑任何排除体积）、非即回无规行走（nonreversal random walk，NRRW）（考虑上一步的排除体积）和自避行走（self-avoiding walks，SAW）三类（考虑所有的排除体积）。
 
+    自回避行走模型是聚合物链在良溶剂中的最简单模型\upcite{XJH-80}。良溶剂意味着单体间互相排斥，聚合物链发生溶胀（swollen）。在不同浓度下，指数$\mu$略有变化。需要指出的是，无规行走和自回避行走模型都是“无热的”，温度不起作用。
 }
 
 \bibliographystyle{gbt7714-numerical} % 参考文献排版风格
