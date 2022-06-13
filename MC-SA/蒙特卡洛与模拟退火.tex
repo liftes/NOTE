@@ -135,24 +135,67 @@ urlcolor=gray,
     \begin{table}[H]
         \centering
         \begin{tabularx}{\textwidth}{lXXX r}
-            \\\toprule
+            \toprule
             \rownumber. & 当前的状态$i$；\\
-            \rownumber. & 从提议分布$q(j|i)$中产生新的状态$j$。\\
+            \rownumber. & 从提议分布$q(j|i)$中产生新的状态$j$；\\
             \rownumber. & 根据公式\eqref{accept-P}计算接受概率;\\
             \rownumber. & 从$[0,1]$区间中抽样出一个数据点（均匀分布）$u \thicksim U[0,1]$;\\
             \rownumber. & 将随机生成的数和接受率对比，如果$u<\alpha$,状态就从$i$跳转到$j$，否则继续保留在状态$i$。
             \\\bottomrule
         \end{tabularx}%
-        \label{tab:addlabel}%
+        \label{tab:01}%
         \caption{Metropolis-Hastings 算法流程}
+    \end{table}%
+
+    结合上述算法，可以综合得到高分子的 Metropolis Monte Carlo 算法\upcite{HZW-70,XJH-80,SYT-76,FY-71}：
+    \begin{table}[H]
+        \centering
+        \setcounter{rownumbers}{0}
+        \begin{tabularx}{\textwidth}{lXXX r}
+            \toprule
+            \rownumber. & 生成一个初始构象，并把它作为当前构象；\\
+            \rownumber. & 从当前构象出发演化出一个新构象；\\
+            \rownumber. & 计算构象改变前后能量的改变；\\
+            \rownumber. & 如果$\Delta E<0$，则接受新构象，把它作为当前构象，否则需要计算$\exp{(-\beta \Delta E)}$；\\
+            \rownumber. & 从$[0,1]$均匀分布的随机数序列中产生一个随机数$r$，如果$r<\exp{(-\beta \Delta E)}$，接受新构象，并把它作为当前构象；否则保留原构象为当前构象。\\
+            \rownumber. & 重复步骤（2）直到$N$足够大，可计算物理量的值：$\left\langle A\left(r^{N}\right)\right\rangle=\frac{1}{M} \sum_{i=1}^{M} A\left(r^{N}\right)$。
+            \\\bottomrule
+        \end{tabularx}%
+        \label{tab:02}%
+        \caption{Metropolis Monte Carlo 算法}
     \end{table}%
 }
 
 \chapter{高分子的MC模拟模型}
 \par{
-    高分子聚合物是由大量的重复单元组成的大分子。然而，高分子物理关注的是不依赖于单体具体化学构造的聚合物统计性质。因此它从远大于单体间距而远小于链长的尺度着手，把由单体连接的链看成由粗粒化的链节连接的链，每个链节代表实际高分子链中一个较长的链段，这就是所谓的链的粗粒化。而在高分子模拟的建模上，也有格子链模型（1attice chain model）与非格子链模型（off-1attice chain model）两类。而在链的生成方式上，又分无规行走（random walk,RW）（不考虑任何排除体积）、非即回无规行走（nonreversal random walk，NRRW）（考虑上一步的排除体积）和自避行走（self-avoiding walks，SAW）三类（考虑所有的排除体积）。
+
+    \section{格子链模型-链的生成}
+    高分子聚合物是由大量的重复单元组成的大分子。然而，高分子物理关注的是不依赖于单体具体化学构造的聚合物统计性质。因此它从远大于单体间距而远小于链长的尺度着手，把由单体连接的链看成由粗粒化的链节连接的链，每个链节代表实际高分子链中一个较长的链段，这就是所谓的链的粗粒化。而在高分子模拟的建模上，也有格子链模型（1attice chain model）与非格子链模型（off-1attice chain model）两类。在MC中，我们一般考虑前者。
+    
+    而在链的生成方式上，又分无规行走（random walk,RW）（不考虑任何排除体积）、非即回无规行走（nonreversal random walk，NRRW）（考虑上一步的排除体积）和自避行走（self-avoiding walks，SAW）三类（考虑所有的排除体积）。
 
     自回避行走模型是聚合物链在良溶剂中的最简单模型\upcite{XJH-80}。良溶剂意味着单体间互相排斥，聚合物链发生溶胀（swollen）。在不同浓度下，指数$\mu$略有变化。需要指出的是，无规行走和自回避行走模型都是“无热的”，温度不起作用。
+
+    \section{链的松弛}
+
+    \begin{definition}
+        松弛过程（relaxation）:\\在外力作用下高分子链由原来的构象过渡到与外力相适应的构象的过程，即高分子链由一种平衡态过渡到另一种平衡态的过程，此过程伴有弹性形变。这主要由于高分子链段的热运动而产生。高分子链段之间有内摩擦，弹性形变需要一定的时间才能完成，此过程称为松弛过程，所需的时间称作松弛时间。
+    \end{definition}
+
+    除去使用各类随机行走对系统构象进行初始化外，还要考虑链构象的演化过程，其一般通过松弛算法来进行。对于简立方格子模型一般采用以下松弛模式：纽结跳跃(kink jump)运动，曲柄(crankshaft)运动，蛇行(reptation)运动。
+
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figure/SongChi.png}
+        \caption{聚合物松弛模式示意图}
+        \label{Fig-SongChi}
+    \end{figure}
+
+    问题在于一般的松弛算法计算效率较低，尤其是当模拟系统中链节的浓度比较
+    高时，空位或溶剂越来越少，链节运动的接受几率将大为下降。因此有新的空穴扩散算法和键长涨落模型来改善弛豫过程。如对角线方法（diagonal bond method），即链的键长允许取三个数值1(方格子边长)，$\sqrt{2}$(方格子对角线)，$\sqrt{3}$(立方体对角线)。这种方法可以更快速有效地使体系松弛，并产生更多的链构象，因此适
+    用于高浓度熔体、支化链和接枝链体系\upcite{XJH-80,Shaffer-82}.
+
+
 }
 
 \bibliographystyle{gbt7714-numerical} % 参考文献排版风格
