@@ -1,0 +1,308 @@
+\documentclass[../PolymerFieldTheory.tex]{subfiles}
+\begin{document}
+\begin{sloppypar}
+
+\section{配分函数}
+\par{
+    考虑三维自由空间中的$n$条由$N$段聚合物片段组成的聚合物系统。假定$n$条聚合物链都有相似的结构，即由连续的$n_A$段A型聚合物和$n_B$段B型聚合物组成。有体系不可压缩，既有体积$V=nN/\rho$，且有$f=n_A/N=f_A$，$f_B=n_B/N$。尝试写出系统正则系综下的配分函数：
+    \begin{align}
+        \label{Z04}
+        Z=\int\mathcal{D}[\bm{R(s)}] \, {\exp{[-\beta (\mathcal{H}_0+\mathcal{H}_e)]}} \times \delta\left[\hat{\phi}_{A}(\mathbf{r})+\hat{\phi}_{B}(\mathbf{r})-1\right]
+    \end{align}
+    其中$\mathcal{H}_0$表示聚合物的键连哈密顿量，$\mathcal{H}_e$则表示非键连相互作用引起的哈密顿量变化，$\delta\left[\hat{\phi}_{A}(\mathbf{r})+\hat{\phi}_{B}(\mathbf{r})-1\right]$为系统不可压缩条件，$\beta=1/kT$。特别地，体系配分函数在形式上与单类型片段聚合物链并无差别，具体差异在于如何求解$\mathcal{H}_0$和$\mathcal{H}_e$。按照高斯链的一般形式，可得：
+    \begin{align}
+        \frac{\mathcal{H}_{0}}{k_{B} T}=\frac{3}{2 b^{2}} \sum_{i=1}^{n} \int_{0}^{N} \mathrm{~d} s\left[\frac{\mathrm{d} \mathbf{R}_{i}(s)}{\mathrm{d} s}\right]^{2}
+    \end{align}
+    \begin{align}
+        \frac{\mathcal{H}_{E}}{k_{B} T}=\chi \rho_{0} \int \operatorname{dr} \hat{\phi}_{A}(\mathbf{r}) \hat{\phi}_{B}(\mathbf{r})
+    \end{align}
+    其中$\alpha = A,B$表示A、B两种聚合物片段类型，且有密度算符定义为：
+    \begin{align}
+        \rho_{0} \hat{\phi}_{\alpha}(\mathbf{r}) \equiv 
+        \sum_{i=1}^{n} \int_0^{N f_\alpha} \mathrm{d} s \delta\left[\mathbf{r}-\mathbf{R}_i(s)\right]
+    \end{align}
+
+    一般地，由$\delta$函数的傅里叶变换，有恒等式：
+    \begin{align}
+        \label{densityEqual_F2}
+        \delta\left[\hat{\phi}_{A}(\mathbf{r})+\hat{\phi}_{B}(\mathbf{r})-1\right] & = \delta\left[1-(\hat{\phi}_{A}(\mathbf{r})+\hat{\phi}_{B}(\mathbf{r}))\right] \nonumber \\
+        & = \frac{1}{(2 \pi)^V} \int^{(V)} \mathcal{D}[\xi] \mathrm{e}^{i \xi [1-(\hat{\phi}_{A}(\mathbf{r})+\hat{\phi}_{B}(\mathbf{r}))]} 
+    \end{align}
+    \begin{align}
+        \begin{split}
+            1 & = c_{\alpha}^{-1} \int \mathcal{D}[\phi_{\alpha}] \delta(\phi_{\alpha}-\widehat{\phi}_{\alpha}) \\
+            & = c_{\alpha}^{-1} \int \mathcal{D}[\phi_{\alpha}] \frac{1}{(2 \pi)^V}  \int^{(V)} \mathcal{D}[\omega_{\alpha}] \mathrm{e}^{i \omega_{\alpha} (\phi_{\alpha}-\widehat{\phi}_{\alpha})} 
+        \end{split}
+    \end{align}
+
+    其中$c_{\alpha}$表示对应$\alpha$组分在系统中的占比，已经由公式\eqref{densityEqual_F2}引入了限制条件，作为常系数在以下推导中省略。下面在配分函数\eqref{Z04}中继续引入恒等式\eqref{densityEqual_F2}进行场论推导，既有：
+    \begin{align}
+        \begin{split}
+            Z = &\int\mathcal{D}[\bm{R(s)}] {\exp{[-\beta (\mathcal{H}_0+\mathcal{H}_e)]}} 
+            \times \delta\left[\hat{\phi}_{A}(\mathbf{r})+\hat{\phi}_{B}(\mathbf{r})-1\right] \\
+            = &\int\mathcal{D}[\bm{R(s)}] 
+            \iint \frac{\mathcal{D}[\phi_A] \mathcal{D}[\phi_B]}{(2 \pi)^{2V}}
+            \\
+            & \int \mathcal{D}[\omega_A] \exp[i\omega_A((\phi_{A}-\widehat{\phi}_{A}))] 
+            \int \mathcal{D}[\omega_B] \exp[i\omega_B((\phi_{B}-\widehat{\phi}_{B}))] \\
+            & \times \frac{1}{(2 \pi)^V} \int^{(V)} \mathcal{D}[\xi] \mathrm{e}^{i \xi [1-(\hat{\phi}_{A}(\mathbf{r})+\hat{\phi}_{B}(\mathbf{r}))]} \\
+            = &\int\mathcal{D}[\bm{R(s)}] 
+            \iint \frac{\mathcal{D}[\phi_A] \mathcal{D}[\phi_B]}{(2 \pi)^{2V}}
+            \\
+            & \int \mathcal{D}[\omega_A] \exp[i\omega_A((\phi_{A}-\widehat{\phi}_{A}))] 
+            \int \mathcal{D}[\omega_B] \exp[i\omega_B((\phi_{B}-\widehat{\phi}_{B}))] \\
+            & \times \frac{1}{(2 \pi)^{NV}} \int^{(V)} \mathcal{D}[\xi] \exp\{ {\int {\rm d}r \, i \xi [1-(\hat{\phi}_{A}(\mathbf{r})+\hat{\phi}_{B}(\mathbf{r}))]} \} \\
+        \end{split}
+    \end{align}
+    一般地，有$exp\{ {\int dr \, i \xi [1-(\hat{\phi}_{A}(\mathbf{r})+\hat{\phi}_{B}(\mathbf{r}))]} \}$作为附加密度场的限制条件，$\xi$场在计算时用来控制系统的精准程度，因此为推导方便，关于$\xi$场的部分可以作为常数项，即可单位化为1。从而进一步推导配分函数为（交换积分次序，$Z_0$和分母系数等不受泛函积分影响的项重写入泛函中）：
+    \begin{align}
+        \begin{split}
+            Z = &\int \mathcal{D}[\phi_A,\phi_B] \mathrm{e}^{-\beta \mathcal{H}^E}
+            \int \frac{\mathcal{D}[\omega_A,\omega_B]}{(2 \pi)^{(N+2)V}}
+            \mathrm{e}^ {\{ i(\omega_A\phi_A+\omega_B\phi_B) \} }
+            \int \mathcal{D}[\bm{R}(s)] 
+            \mathrm{e}^{-\beta \mathcal{H}^0} \mathrm{e}^{-i(\omega_A \hat{\phi}_A + \omega_B \hat{\phi}_B)} \\
+            = &\int \mathcal{D}[\phi_A,\phi_B] \mathrm{e}^{-\beta \mathcal{H}^E}
+            \int \frac{\mathcal{D}[\omega_A,\omega_B]}{(2 \pi)^{(N+2)V}}
+            \mathrm{e}^ {\{ i(\omega_A\phi_A+\omega_B\phi_B) \} }
+            Q Z_0 \\
+            = & \frac{Z_0}{(2 \pi)^{(N+2)V}} \int \mathcal{D}[\phi_A,\omega_A,\phi_B,\omega_B]
+            \mathrm{e}^{-\mathcal{F}[\phi_A,\omega_A,\phi_B,\omega_B]}\\
+            = & \int \mathcal{D}[\phi_A,\omega_A,\phi_B,\omega_B]
+            \mathrm{e}^{-\mathcal{F}[\phi_A,\omega_A,\phi_B,\omega_B]}
+        \end{split}
+    \end{align}
+    其中有单链组成系统的的配分函数定义为（$\alpha=A,B$）：
+    \begin{gather}
+        Q \equiv Z_0^{-1} \int \mathcal{D}\left\{\mathbf{R}(s)\right\} \exp \left\{ \int \mathrm{d} s\left[\frac{\mathrm{d} \mathbf{R}(s)}{\mathrm{d} s}\right]^{2}\right. 
+        \left.- \sum_\alpha \int \mathrm{d} s \, \omega_{\alpha}\left[\mathbf{R}(s)\right]\right\}\\
+        Z_0=\int \mathcal{D}\left\{\mathbf{R}(s)\right\} \exp \left\{ \int \mathrm{d} s\left[\frac{\mathrm{d} \mathbf{R}(s)}{\mathrm{d} s}\right]^{2}\right\}
+    \end{gather}
+    而自由能：
+    \begin{align}
+        \begin{split}
+        \label{ziyouneng}
+        \mathcal{F}[\phi_A,\omega_A,\phi_B,\omega_B] = &
+        \beta\mathcal{H}^E - i(\omega_A \phi_A + \omega_B \phi_B) 
+        - \ln{Q} \\
+        = & \chi \rho_{0} \int {\rm d}{\bm{r}} \hat{\phi}_{A}(\mathbf{r}) \hat{\phi}_{B}(\mathbf{r}) - i \int {\rm d}{\bm{r}} [\omega_A(\bm{r}) \phi_A(\bm{r}) + \omega_B(\bm{r}) \phi_B(\bm{r})] - \ln{Q} \\
+        = & \chi \rho_{0} \int {\rm d}{\bm{r}} \phi_{A}(\mathbf{r}) \phi_{B}(\mathbf{r}) - i \int {\rm d}{\bm{r}} [\omega_A(\bm{r}) \phi_A(\bm{r}) + \omega_B(\bm{r}) \phi_B(\bm{r})] - \ln{Q}
+        \end{split}
+    \end{align}
+    其中由于$\delta$函数的限制作用可认为$\hat{\phi}_{\alpha}=\phi_{\alpha}$。
+}
+
+\section{自洽场求解}
+\par{
+    根据定义有单链的配分函数为：
+    \begin{align}
+        \begin{split}
+            Q^0 = & Z_0^{-1} \exp \left\{ \int \mathrm{d} s\left[\frac{\mathrm{d} \mathbf{R}(s)}{\mathrm{d} s}\right]^{2}\right. 
+            \left.- \sum_\alpha \int \mathrm{d} s \, \omega_{\alpha}\left[\mathbf{R}(s)\right]\right\}\\
+            \equiv &\frac{1}{V} \int d \mathbf{r} q(\mathbf{r}, N-s ;[w]) \exp [w_A(\mathbf{r})] \exp [w_B(\mathbf{r})] q(\mathbf{r}, s ;[w])
+        \end{split}
+    \end{align}
+    其中考虑$q$的计算时需要区分A、B链，同时有：
+    \begin{align}
+        \begin{split}
+        \frac{\mathcal{F}[\phi_A,\omega_A,\phi_B,\omega_B]}{N \rho_{0}} = &
+        \chi N \int \operatorname{dr} \phi_{A}(\mathbf{r}) \phi_{B}(\mathbf{r}) - i \int d{\bm{r}} [\omega_A(\bm{r}) \phi_A(\bm{r})
+         + \omega_B(\bm{r}) \phi_B(\bm{r})] \\
+        & - \ln{Q^0} 
+        \end{split}
+    \end{align}
+    根据自由能公式\eqref{ziyouneng}即可求解自洽场方程,从而得到平均场$\left\{\omega_{\alpha}^{*}, \phi_{\alpha}^{*}\right\}$，即满足以下条件：
+    \begin{align}
+        \left.\frac{\delta \mathcal{F}}{\delta \omega_{\alpha}}\right|_{\omega_{\alpha}=\omega_{\alpha}^{*}, \phi_{\alpha}=\phi_{\alpha}^{*}}=\left.\frac{\delta \mathcal{F}}{\delta \phi_{\alpha}}\right|_{\omega_{\alpha}=\omega_{\alpha}^{*}, \phi_{\alpha}=\phi_{\alpha}^{*}}=0
+    \end{align}
+    则有对其在平均场$\left\{\omega_{\alpha}^{*}, \phi_{\alpha}^{*}\right\}$附近展开有：
+    \begin{gather}
+        \frac{\delta \mathcal{F}}{\delta i \omega_{A}} 
+        = \phi_A^* -  \frac{N}{Q^0[i \omega_A^*]}
+        \frac{\delta Q^0}{\delta i \omega_A}
+        =\phi_A^* -  \frac{N}{Q^0[i \omega_A^*]}
+        \exp \left[i \omega_A^{*}(\mathbf{r})\right]
+        \int \mathrm{d}s \, \exp \left[i \omega_B^{*}(\mathbf{r})\right]
+        q(\bm{r},s) q(\bm{r},N-s) \\
+        \frac{\delta \mathcal{F}}{\delta i \omega_{B}} 
+        = \phi_B^* -  \frac{N}{Q^0[i \omega_B^*]}
+        \frac{\delta Q^0}{\delta i \omega_B}
+        =\phi_B^* -  \frac{N}{Q^0[i \omega_B^*]}
+        \exp \left[i \omega_B^{*}(\mathbf{r})\right]
+        \int \mathrm{d}s \, \exp \left[i \omega_A^{*}(\mathbf{r})\right]
+        q(\bm{r},s) q(\bm{r},N-s) \\
+        \frac{\delta \mathcal{F}}{\delta \phi_{A}} = i \omega_A^* + \chi \rho_0 \phi_{B}^{*} \\
+        \frac{\delta \mathcal{F}}{\delta \phi_{B}} = i \omega_B^* + \chi \rho_0 \phi_{A}^{*}
+    \end{gather}
+    即可得到以下解：
+    \begin{gather}
+        \phi_A^* =  \frac{N}{Q^0[i \omega_A^*]}
+        \exp \left[i \omega_A^{*}(\mathbf{r})\right]
+        \int \mathrm{d}s \, \exp \left[i \omega_B^{*}(\mathbf{r})\right]
+        q(\bm{r},s) q(\bm{r},N-s) \\
+        \phi_B^* =  \frac{N}{Q^0[i \omega_B^*]}
+        \exp \left[i \omega_B^{*}(\mathbf{r})\right]
+        \int \mathrm{d}s \, \exp \left[i \omega_A^{*}(\mathbf{r})\right]
+        q(\bm{r},s) q(\bm{r},N-s) \\
+        i \omega_A^* = - \chi \rho_0 \phi_{B}^{*} \\
+        i \omega_B^* = - \chi \rho_0 \phi_{A}^{*}
+    \end{gather}
+}
+
+\section{高斯涨落}
+\par{
+    为研究系统的相分离性质，还需要考虑系统在平均场附近的涨落，即引入：
+    \begin{align}
+        \label{phi}
+        &\phi_{\alpha}(\mathbf{r})=\phi_{\alpha}^{*}+\delta \phi_{\alpha}(\mathbf{r}) \\
+        \label{omega}
+        &\omega_{\alpha}(\mathbf{r})=\omega_{\alpha}^{*}+\delta \omega_{\alpha}(\mathbf{r})
+    \end{align}
+
+    则有自由能$\mathcal{F}$可在平均场附近展开为：$\mathcal{F} \approx \mathcal{F}^*+\mathcal{F}^{(1)}+\mathcal{F}^{(2)}$。而由于平均场的稳定性要求，需要满足$\mathcal{F}^{(1)}=0$。而剩余项中有$\mathcal{F}^*$表示平均场自由能，$\mathcal{F}^{(2)}$则表示由高斯涨落引起的自由能变化。其形式上可写为（可令$i\omega=\omega$）：
+    \begin{align}
+        \begin{split}
+            \frac{\mathcal{F}^{(2)}}{N \rho_{0}}=& \int \mathrm{d} \mathbf{r}\left[\chi N \delta \phi_{A}(\mathbf{r}) \delta \phi_{B}(\mathbf{r})-\sum_{\alpha} \delta \omega_{\alpha}(\mathbf{r}) \delta \phi_{\alpha}(\mathbf{r})\right] \\
+            &-\frac{1}{2} \sum_{\alpha, \beta} \int \mathrm{d} \mathbf{r d} \mathbf{r}^{\prime} C_{\alpha, \beta}\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \delta \omega_{\alpha}(\mathbf{r}) \delta \omega_{\beta}\left(\mathbf{r}^{\prime}\right)
+        \end{split}
+    \end{align}
+
+    其中最后一项来自于公式\eqref{phi}和\eqref{omega}对单链配分函数$Q^0$的影响。
+    % 即在平均场$\omega_{\alpha}^*$附近对$Q$进行展开（省略了高阶项）：
+    % \begin{align}
+    %     \begin{split}
+    %         \begin{aligned}
+    %             \ln Q_{\alpha}[i \omega_{\alpha}] \approx & \ln Q_{\alpha}\left[i \omega_{\alpha}^{*}\right]
+    %             +\left.i \int_{\mathbf{r}} \mathbf{d} \mathbf{r} \frac{\delta \ln Q_{\alpha}[i \omega_{\alpha}]}{\delta i \omega_{\alpha}(\mathbf{r})}\right|_{\boldsymbol{\omega_{\alpha}}=\boldsymbol{\omega_{\alpha}}^{*}} \delta \omega_{\alpha}(\mathbf{r}) \\
+    %             &+\left.\frac{i^{2}}{2} 
+    %             \int \mathbf{d} \mathbf{r} \mathbf{d} \mathbf{r'} 
+    %             \frac{\delta^{2} \ln Q_{\alpha}[i \omega_{\alpha}]}{\delta i \omega_{\alpha}(\mathbf{r}) \delta i \omega_{\alpha}\left(\mathbf{r}^{\prime}\right)}\right|_{\boldsymbol{\omega_{\alpha}}=\boldsymbol{\omega_{\alpha}}^{*}} \delta \omega_{\alpha}(\mathbf{r}) \delta \omega_{\alpha}\left(\mathbf{r}^{\prime}\right) \\
+    %             =& \ln Q_{\alpha}\left[i \omega_{\alpha}^{*}\right]-i 
+    %             \int \mathbf{d} \mathbf{r} \, \frac{\exp \left[i \omega_{\alpha}^{*}(\mathbf{r})\right]}{V Q_{\alpha}\left[i \omega_{\alpha}^{*}\right]} 
+    %             \int \mathbf{d} s \, q_{s}(\mathbf{r}) q_{N+1-s}(\mathbf{r}) \delta \omega_{\alpha}(\mathbf{r}) \\
+    %             &+\left.\frac{i^{2}}{2} 
+    %             \int \mathbf{d} \mathbf{r} \mathbf{d} \mathbf{r'}
+    %             \left\{\frac{1}{Q_{\alpha}\left[i \omega_{\alpha}^{*}\right]} \frac{\delta^{2} Q_{\alpha}[i \omega_{\alpha}]}{\delta i \omega_{\alpha}(\mathbf{r}) \delta i \omega_{\alpha}\left(\mathbf{r}^{\prime}\right)}-\frac{1}{Q_{\alpha}\left[i \omega_{\alpha}^{*}\right]^{2}} \frac{\delta Q_{\alpha}[i \omega_{\alpha}]}{\delta i \omega_{\alpha}(\mathbf{r})} \frac{\delta Q[i \omega_{\alpha}]}{\delta i \omega_{\alpha}\left(\mathbf{r}^{\prime}\right)}\right\} 
+    %             \right|_{\boldsymbol{\omega_{\alpha}}=\boldsymbol{\omega_{\alpha}}^{*}} \\
+    %             & \delta \omega_{\alpha}(\mathbf{r}) \delta \omega_{\alpha}\left(\mathbf{r}^{\prime}\right) \\
+    %             = & \ln Q_{\alpha}\left[i \omega_{\alpha}^{*}\right] 
+    %             - i \int d \mathbf{r} \langle\hat{\rho}(\mathbf{r})\rangle_{[\omega_{\alpha}^*]} \delta \omega_{\alpha}(\mathbf{r}) \\
+    %             & + \frac{i^{2}}{2} 
+    %             \int \mathbf{d} \mathbf{r} \mathbf{d} \mathbf{r'}  
+    %             \{ \left\langle\hat{\rho}(\mathbf{r}) \hat{\rho}\left(\mathbf{r}^{\prime}\right)\right\rangle_{[\omega_{\alpha}^*]}-\langle\hat{\rho}(\mathbf{r})\rangle_{[\omega_{\alpha}^*]}\left\langle\hat{\rho}\left(\mathbf{r}^{\prime}\right)\right\rangle_{[\omega_{\alpha}^*]} \}  \delta \omega_{\alpha}^*(\mathbf{r}) \delta \omega_{\alpha}^*\left(\mathbf{r}^{\prime}\right)    
+    %         \end{aligned}
+    %     \end{split}
+    % \end{align}
+
+    可定义链内关联函数为：
+    \begin{align}
+        C_{\alpha \beta}\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \equiv 
+        \frac{\delta^{2} \ln Q^0}{\delta \omega_{\alpha} \delta \omega_{\beta}}
+    \end{align}
+    并定义$\delta \phi(\mathbf{r}) \equiv \delta \phi_{A}(\mathbf{r})-\delta \phi_{B}(\mathbf{r})$和$\delta \mu_{\pm}(\mathbf{r}) \equiv\left[\delta \omega_{A}(\mathbf{r}) \pm \delta \omega_{B}(\mathbf{r})\right] / 2$以使关联函数正交化。即可得到：
+    \begin{align}
+        \begin{split}
+        \frac{\mathcal{F}^{(2)}}{N \rho_{0}}=& \frac{1}{2} \int {\rm d} \bm{r} {\rm d} \bm{r}^{\prime} \left\{\frac{\chi N}{2} \delta \phi(\mathbf{r}) \delta \phi\left(\mathbf{r}^{\prime}\right) \delta\left(\mathbf{r}-\mathbf{r}^{\prime}\right)\right.\\
+        &-2 \delta \mu_{-}(\mathbf{r}) \delta \phi\left(\mathbf{r}^{\prime}\right) \delta\left(\mathbf{r}-\mathbf{r}^{\prime}\right) \\
+        &-C\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \delta \mu_{-}(\mathbf{r}) \delta \mu_{-}\left(\mathbf{r}^{\prime}\right)-\Sigma\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \delta \mu_{+}(\mathbf{r}) \delta \mu_{+}\left(\mathbf{r}^{\prime}\right) \\
+        &\left.-\Delta\left(\mathbf{r}, \mathbf{r}^{\prime}\right)\left[\delta \mu_{-}(\mathbf{r}) \delta \mu_{+}\left(\mathbf{r}^{\prime}\right)+\delta \mu_{+}(\mathbf{r}) \delta \mu_{-}\left(\mathbf{r}^{\prime}\right)\right]\right\}            
+        \end{split}
+    \end{align}
+    其中使用的符号有：
+    \begin{gather}
+        \begin{split}
+                &C\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \equiv C_{A A}\left(\mathbf{r}, \mathbf{r}^{\prime}\right)-2 C_{A B}\left(\mathbf{r}, \mathbf{r}^{\prime}\right)+C_{B B}\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \\
+                &\Delta\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \equiv C_{A A}\left(\mathbf{r}, \mathbf{r}^{\prime}\right)-C_{B B}\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \\
+                &\Sigma\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \equiv C_{A A}\left(\mathbf{r}, \mathbf{r}^{\prime}\right)+2 C_{A B}\left(\mathbf{r}, \mathbf{r}^{\prime}\right)+C_{B B}\left(\mathbf{r}, \mathbf{r}^{\prime}\right)
+        \end{split}
+    \end{gather}
+    {\footnotesize \color{lightgrayblue}
+    附：有上式拆分的逆过程：
+    \begin{align}
+        \phi(\mathbf{r}) = \int {\rm d}\mathbf{r}^\prime \phi(\mathbf{r}^\prime)
+        \delta(\mathbf{r}-\mathbf{r}^\prime)
+    \end{align}
+    \begin{gather}
+        4\delta \mu_{-}(\mathbf{r}) \delta \mu_{-}\left(\mathbf{r}^{\prime}\right) = \delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+        - \delta\omega_A(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+        - \delta\omega_B(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+        +\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime) \\
+        4\delta \mu_{+}(\mathbf{r}) \delta \mu_{+}\left(\mathbf{r}^{\prime}\right) = \delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+        + \delta\omega_A(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+        + \delta\omega_B(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+        +\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime) 
+    \end{gather}
+    \begin{align}
+        \begin{split}
+            &4\delta \mu_{-}(\mathbf{r}) \delta \mu_{+}\left(\mathbf{r}^{\prime}\right)+4\delta \mu_{+}(\mathbf{r}) \delta \mu_{-}\left(\mathbf{r}^{\prime}\right) \\
+            & = \delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+            + \delta\omega_A(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+            - \delta\omega_B(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+            -\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)\\
+            & \quad 
+            +\delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+            - \delta\omega_A(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+            + \delta\omega_B(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+            -\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)\\
+            & = 2\delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+            -2\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+        \end{split}
+    \end{align}
+    \begin{align}
+        \begin{split}
+            & C\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \delta \mu_{-}(\mathbf{r}) \delta \mu_{-}\left(\mathbf{r}^{\prime}\right)+\Sigma\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \delta \mu_{+}(\mathbf{r}) \delta \mu_{+}\left(\mathbf{r}^{\prime}\right) + \Delta\left(\mathbf{r}, \mathbf{r}^{\prime}\right)\left[\delta \mu_{-}(\mathbf{r}) \delta \mu_{+}\left(\mathbf{r}^{\prime}\right)+\delta \mu_{+}(\mathbf{r}) \delta \mu_{-}\left(\mathbf{r}^{\prime}\right)\right]\\
+            &= \frac{1}{4} (C_{AA}-2C_{AB}+C_{BB}) \times [
+                \delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+                - \delta\omega_A(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+                - \delta\omega_B(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+                +\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime) 
+            ]\\
+            & \quad + \frac{1}{4} (C_{AA}+2C_{AB}+C_{BB}) \times[
+                \delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+                + \delta\omega_A(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+                + \delta\omega_B(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+                +\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime) 
+            ]\\
+            & \quad + \frac{1}{4} (C_{AA} - C_{BB}) \times[
+                2\delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+                -2\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+            ]\\
+            &=C_{AA}\delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+            +C_{BB}\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+            +C_{AB}[
+                \delta\omega_A(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+                + \delta\omega_B(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+            ]\\
+            &=C_{AA}\delta\omega_A(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+            +C_{BB}\delta\omega_B(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+            +C_{AB}\delta\omega_A(\mathbf{r}) \delta\omega_B(\mathbf{r}^\prime)
+            +C_{BA}\delta\omega_B(\mathbf{r}) \delta\omega_A(\mathbf{r}^\prime)
+        \end{split}
+    \end{align}
+    }
+
+    对于二嵌段聚合物，有对关联函数为：
+    \begin{gather}
+        C_{AA}(x) = g_D(x)\\
+        C_{BB}(x) = g_D(x)\\
+        C_{AB}(x) = C_{BA}(x) = F(x)
+    \end{gather}
+    其中有：
+    \begin{gather}
+        g_{D}(x)=\frac{2}{x^{2}}[\mathrm{e}^{-x}-1+x]\\
+        F(x)=\frac{1}{x^{2}}[\mathrm{e}^{-2 x}-2 \mathrm{e}^{-x}+1]
+    \end{gather}
+
+    即可以重写配分函数为：
+    \begin{align}
+        \mathcal{Z} \approx \exp \left(-\mathcal{F}^{*}\right) \int \mathcal{D}\left\{\delta \mu_{\pm}, \delta \phi\right\} \exp \left\{-\mathcal{F}^{(2)}\left[\delta \phi, \delta \mu_{\pm}\right]\right\}
+    \end{align}
+    其中高斯涨落自由能可用RPA关联函数表示为（定义有$\tilde{C} \equiv C-\Delta \cdot \Sigma^{-1} \cdot \Delta$）：
+    \begin{gather}
+        \frac{\mathcal{F}^{(2)}}{N \rho_{0}}=\frac{1}{2} \int {\rm d} \bm{r} {\rm d} \bm{r}^{\prime} \delta \phi(\mathbf{r}) C_{R P A}^{-1}\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \delta \phi\left(\mathbf{r}^{\prime}\right)\\
+        C_{R P A}^{-1}\left(\mathbf{r}, \mathbf{r}^{\prime}\right) \equiv\left[\tilde{C}^{-1}-\frac{\chi N}{2} I\right]\left(\mathbf{r}, \mathbf{r}^{\prime}\right)=\left[\frac{C_{A A}+2 C_{A B}+C_{B B}}{4 C_{A A} C_{B B}-4 C_{A B}^{2}}-\frac{\chi N}{2}\right] \left(\mathbf{r}, \mathbf{r}^{\prime}\right)
+    \end{gather}
+}
+
+\end{sloppypar}
+\end{document}

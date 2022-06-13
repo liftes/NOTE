@@ -1,0 +1,355 @@
+\documentclass[../PolymerFieldTheory.tex]{subfiles}
+\begin{document}
+\begin{sloppypar}
+
+\par{
+    假设研究的聚合物尺度远大于原子尺度，即可采用以下近似：溶液可看作连续介质，而对高分子链使用粗粒化模型，如“高斯链模型”等。下面介绍一些基本的简单高分子模型。
+}
+
+\section{自由连接链模型 \label{sec:01}}
+\par{
+    假设一条线性聚合物由$N$个单体顺序连接构成，单体与相邻单体之间的距离和取向用“键矢”来表示，键矢的长度为定值$b_0$，键矢的空间取向是完全随机的。故高分子链的构象可以假设成通过$N$次方向无规、步长固定的步行结果。这一模型称为自由连接模型。
+}
+
+\subsection{末端距}
+\par{
+    可以看出上述模型下高分子链的自由度为$N+1$，即需要确定$N+1$个片段的位置（$N$个连接）即可确定整条链的状态信息。可以写出分布函数为：
+    \begin{align}
+        \label{z_fenbuhanshu01}
+        \Psi\left(\left\{\boldsymbol{r}_{n}\right\}\right)=\prod_{n=1}^{N} \psi\left(\boldsymbol{r}_{n}\right)
+    \end{align}
+    其中$\psi\left(\boldsymbol{r}_{n}\right)$表示定长$b_0$的连接在全空间上的随机分布，既有：$\psi(r)=\delta\left(|r|-b_{0}\right)/{4 \pi b_{0}^{2}} $且$\int \operatorname{d} r \psi(r)=1$。
+
+    考虑末端距（end-to-end distance）以表征高分子的大小，有：
+    \begin{align}
+        \bm{R}=\bm{R_{N}}-\bm{R_{0}}=\sum_{n=1}^{N} \bm{r_{n}}
+    \end{align}
+    又因为$\left\langle \bm{r_n}\right\rangle=0$时有$\left\langle \bm{R}\right\rangle =0$，故考虑二阶矩$\left\langle \bm{R^2}\right\rangle $以描述高分子的特征长度。定义有：
+    \begin{align}
+        \bm{\bar{R}} \equiv \left\langle\boldsymbol{R}^{2}\right\rangle^{1 / 2}=\left\langle\left(\boldsymbol{R}_{\boldsymbol{N}}-\boldsymbol{R}_{0}\right)^{2}\right\rangle^{1 / 2}
+    \end{align}
+    对于自由连接链，有$\left\langle\boldsymbol{r}_{\boldsymbol{n}} \cdot \boldsymbol{r}_{\boldsymbol{m}}\right\rangle=\left\langle\boldsymbol{r}_{\boldsymbol{n}}\right\rangle \cdot\left\langle\boldsymbol{r}_{\boldsymbol{m}}\right\rangle=0(n \neq m)$，则有$\left\langle\boldsymbol{R}^{2}\right\rangle=\sum_{n, m=1}^{N}\left\langle\boldsymbol{r}_{n} \cdot \boldsymbol{r}_{m}\right\rangle=\sum_{n=1}^{N}\left\langle\boldsymbol{r}_{n}^{2}\right\rangle+2 \sum_{n>m}\left\langle\boldsymbol{r}_{n} \cdot \boldsymbol{r}_{m}\right\rangle=N b_{0}^{2}$。
+
+    还可以考虑该模型下末端距的概率分布函数（利用公式\eqref{z_fenbuhanshu01}）：
+    \begin{align}
+        \begin{split}
+            \Phi(\bm{R}, N)= & \int \mathrm{d} \bm{r}_{1} \int \mathrm{d} \bm{r}_{2} \ldots \int \mathrm{d} \bm{r}_{N} \delta\left(\bm{R}-\sum_{n=1}^{N} \bm{r}_{n}\right) \Psi\left(\left\{\bm{r}_{n}\right\}\right) \\
+            = &\frac{1}{(2 \pi)^{3}} \int {\rm d} \boldsymbol{k} \int \mathrm{d} \boldsymbol{\bm{r}}_{1} \int \mathrm{d} \boldsymbol{\bm{r}}_{2} \ldots \int \mathrm{d} \boldsymbol{\bm{r}}_{N}\times \exp \left(\mathrm{i} \boldsymbol{k} \cdot\left(\boldsymbol{R}-\sum_{n=1}^{N} \boldsymbol{r}_{n}\right)\right) \Psi\left(\left\{\boldsymbol{r}_{n}\right\}\right)\\
+            =&\frac{1}{(2 \pi)^{3}} \int \mathrm{d} \bm{k} \mathrm{e}^{\mathrm{i} \bm{k} \cdot \boldsymbol{R}} \int \mathrm{d} \boldsymbol{r}_{1} \ldots \mathrm{d} \boldsymbol{r}_{N} \prod_{n=1}^{N} \exp \left(-\mathrm{i} \boldsymbol{k} \cdot \boldsymbol{r}_{n}\right) \psi\left(\boldsymbol{r}_{n}\right) \\
+            =&\frac{1}{(2 \pi)^{3}} \int \mathrm{d} \bm{k} \mathrm{e}^{\mathrm{i} \boldsymbol{k} \cdot \boldsymbol{R}}\left[\int \mathrm{d} \boldsymbol{r} \exp (-\mathrm{i} \boldsymbol{k} \cdot \boldsymbol{r}) \psi(\boldsymbol{r})\right]^{N}
+        \end{split}
+    \end{align}
+    而后通过引入极坐标系以及对小量进行近似，可得（细节见Doi书\upcite{Doi1986TheTO}）：
+    \begin{align}
+        \label{pro-endtoend}
+        \begin{split}
+            \Phi(\boldsymbol{R}, N)&=\frac{1}{(2 \pi)^{3}} \int \mathrm{d} \boldsymbol{k} \mathrm{e}^{\mathrm{i} \boldsymbol{k} \cdot \boldsymbol{R}} \exp \left(-\frac{N \boldsymbol{k}^{2} b^{2}}{6}\right)\\
+            &=(2 \pi)^{-3} \prod_{\alpha=x, y, z}\left[\int_{-\infty}^{\infty} \mathrm{d} k_{\alpha} \exp \left(\mathrm{i} k_{\alpha} R_{\alpha}-N k_{\alpha}^{2} b^{2} / 6\right)\right] \\
+            &=(2 \pi)^{-3} \prod_{\alpha=x, y, z}\left(\frac{6 \pi}{N b^{2}}\right)^{1 / 2} \exp \left(-\frac{3}{2 N b^{2}} R_{\alpha}^{2}\right) \\
+            &=\left( \frac{3}{2 \pi N b^{2}} \right)^{3 / 2} \exp \left(-\frac{3 \bm{R}^{2}}{2 N b^{2}}\right)
+        \end{split}
+    \end{align}
+}
+
+\subsection{均方回转半径}
+\par{
+
+    我们还可以定义均方回转半径$\bm{R}_g$以衡量聚合物的聚集程度，其平方定义为高分子链上所有原子/片段的距离平方，即有：
+    \begin{align}
+        \boldsymbol{R}_{g}^{2} & \equiv \frac{1}{2 N^{2}} \sum_{n, m=1}^{N}\left\langle\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)^{2}\right\rangle \\
+        & = \frac{1}{N} \sum_{n=1}^{N}\left\langle\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{G}\right)^{2}\right\rangle
+    \end{align}
+    其中有$\bm{R}_G$表示高分子链的质心位置，即$\boldsymbol{R}_{G}=\frac{1}{N} \sum_{n=1}^{N} \boldsymbol{R}_{n}$。数学上可以简单证明$\bm{R}_g$的两种表达方式等价，有：
+    \begin{align}
+        \begin{split}
+            \boldsymbol{R}_{g}^{2} &=\frac{1}{N} \sum_{n}\left\langle\boldsymbol{R}_{n}^{2}-2 \boldsymbol{R}_{n} \cdot \boldsymbol{R}_{G}+\boldsymbol{R}_{G}^{2}\right\rangle \\
+            &=\frac{1}{N} \sum_{n}\left\langle\boldsymbol{R}_{n}^{2}-2 \frac{\boldsymbol{R}_{n}}{N} \cdot \sum_{m} \boldsymbol{R}_{m}+\frac{1}{N^{2}} \sum_{m, i} \boldsymbol{R}_{m} \cdot \boldsymbol{R}_{i}\right\rangle \\
+            &=\left\langle\frac{1}{N} \sum_{n} \boldsymbol{R}_{n}^{2}-\frac{1}{N^{2}} \sum_{n, m} \boldsymbol{R}_{n} \cdot \boldsymbol{R}_{m}\right\rangle \\
+            & =\left\langle \sum_{m, m} \frac{1}{2 N^{2}}\left(\bm{R}_{n}^{2}-2 \bm{R}_{n} \cdot \bm{R}_{m}+\bm{R}_{m}^{2}\right) \right\rangle \\
+            &=\frac{1}{2 N^{2}} \sum_{n, m}\left\langle\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)^{2}\right\rangle \\ 
+        \end{split}
+    \end{align}
+
+    则对于自由连接链，有：
+    \begin{align}
+        \bm{R}_{g}^{2}&=\frac{1}{N^{2}} \sum_{i=0}^{N-1} \sum_{j>i}^{N-1}\left\langle\left(\bm{r}_{i}-\bm{r}_{j}\right)^{2} \right\rangle\\
+        &=\frac{1}{N^{2}} \sum_{i=0}^{N-1} \sum_{j>i}^{N-1}( b^2 |i-j|  )\\
+        &\approx \frac{b^2 N}{6} (N \rightarrow \infty)
+    \end{align}
+}
+
+\subsection{配分函数}
+\par{
+    为方便，我们定义本小节中的$N$为高分子链上的链接数量，即高分子含$N+1$个原子。由此可以写出体系的配分函数为：
+    \begin{align}
+        \label{Z-exam1}
+        Z_{0}=\int {\rm d} \bm{r}^{N+1} \exp \left[-\beta U_{0}\left(\bm{r}^{N+1}\right)\right]
+    \end{align}
+    其中有$\bm{r}^{N+1}=\left(\bm{r}_{0}, \bm{r}_{1}, \ldots, \bm{r}_{N}\right)$，$U_{0}\left(\bm{r}^{N+1}\right)$则表示$N+1$个粒子的位置势能。并且上式在构型空间中进行观测，故积分维度为$N+1$。同时可以给出联合概率密度的表达式：
+    \begin{align}
+        \label{P-exam1}
+        P_{0}\left(\bm{r}^{N+1}\right)=Z_{0}^{-1} \exp \left[-\beta U_{0}\left(\bm{r}^{N+1}\right)\right]
+    \end{align}
+    可以看出其满足玻尔兹曼分布\upcite{Glenn2006The}。并引入归一化系数：$\int {\rm d} \bm{r}^{N+1} P_{0}\left(\bm{r}^{N+1}\right)=1$。
+
+    一般地，考虑自由连接链具有$N+1$的自由度，我们可以使用高分子链末端原子的位置$\bm{r}_0$和依次其余$N$个原子的成键位移增量$\bm{b}^{N}=\left(\bm{b}_{1}, \bm{b}_{2}, \ldots, \bm{b}_{N}\right)$以替代$\bm{r}^{N+1}=\left(\bm{r}_{0}, \bm{r}_{1}, \ldots, \bm{r}_{N}\right)$，$U_{0}\left(\bm{r}^{N+1}\right)$对高分子链进行描述，其中有$\bm{b}_{i} \equiv \bm{r}_{i}-\bm{r}_{i-1}$。其优势在于位置势能函数$U_0$仅与$\bm{b}^N$有关，而与链末端原子的位置$\bm{r}_0$无关。因此可以重写体系的配分函数公式\eqref{Z-exam1}以及联合概率\eqref{P-exam1}如下：
+    \begin{gather}
+        \label{Z0-ideal}
+        Z_{0}=V \int {\rm d} \bm{b}^{N} \exp \left[-\beta U_{0}\left(\bm{b}^{N}\right)\right] \\
+        P_{0}\left(\bm{r}_{0}, \bm{b}^{N}\right)=Z_{0}^{-1} \exp \left[-\beta U_{0}\left(\bm{b}^{N}\right)\right]
+    \end{gather}
+
+    特别地，自由连接链只对键长进行限制，而并不限制键的空间指向分布。因此每个键$\bm{b}_i$在空间指向上都是均匀分布，且彼此独立（即是独立同分布的）。既有$\left|\bm{b}_{i}\right|=b$。因此进行如下表示：$\bm{b}_{i}=b \bm{n}_{i}$，其中$\bm{n}^{N}=\left(\bm{n}_{1}, \ldots, \bm{n}_{N}\right)$是独立且均匀分布在球面上的$N$个单位向量。因此对于自由连接链模型，其满足以下联合概率分布：
+    \begin{align}
+        P_{0}\left(\bm{r}_{0}, \bm{n}^{N}\right)=\frac{1}{V}\left(\frac{1}{4 \pi}\right)^{N}
+    \end{align}
+    其中有$\int {\rm d} \bm{r}_{0} \int {\rm d} \bm{n}^{N} P_{0}\left(\bm{r}_{0}, \bm{n}^{N}\right)=1$，$\int {\rm d} \bm{n}^{N}$则表示在球面上的$N$个积分。
+}
+
+\subsection{约化分布函数}
+\par{
+    与其他系统不同，探索理想链模型的统计性质的另一种有用的方法是直接计算端到端向量的概率分布函数。其提供了配分函数的一种新的书写形式，并为计算机计算提供了可行的算法。特别感兴趣的是约化分布函数（reduced distribution function）$p_{0}(\bm{r}, j)$，其表示具有$j+1$片段的高分子的末端粒子（即第$j$号粒子）在位置$\bm{r}$处的概率。其满足$\int {\rm d} \bm{r} p_{0}(\bm{r}, j)=1$。
+
+    我们可以假设链的构型为单独粒子在空间中的一系列随机行走轨迹，即可借用随机过程的相关理论，通过不断迭代转移概率（自由连接链中即为固定长度的全空间均匀分布）以生成整条链的构型。即有：
+    \begin{align}
+        \label{pro_r}
+        p_{0}(\bm{r}, j)=\frac{1}{4 \pi} \int {\rm d} \bm{n} \, p_{0}(\bm{r}-b \bm{n}, j-1)
+    \end{align}    
+    上式中的因子 $1/(4\pi)$ 表示与添加键的方向相关的均匀转移概率在单位球面上的积分值。这样的方程在随机过程理论中被称为查普曼-柯尔莫哥罗夫方程（van Kampen，1981）\upcite{Glenn2006The}。该理论把自由连接链看作是一步马尔可夫过程的一个实例应用，因为转移概率仅与连接链上相邻粒子的位置有关。可以看到这种方式非常适合进行数值计算。
+
+    一般地，有傅里叶变换和其逆变换：
+    \begin{gather}
+        \hat{f}(\bm{k})=\int {\rm d} \bm{r} \mathrm{e}^{-i \bm{k} \cdot \bm{r}} f(\bm{r})\\
+        f(\bm{r})=\frac{1}{(2 \pi)^{3}} \int {\rm d} \bm{k} \mathrm{e}^{i \bm{k} \cdot \bm{r}} \hat{f}(\bm{k})
+    \end{gather}
+    将其代入公式\eqref{pro_r}中，即可得到：
+    \begin{align}
+        \begin{split}
+            \hat{p}_{0}(\bm{k}, j) &=\frac{1}{4 \pi} \int {\rm d} \bm{n} \mathrm{e}^{-i b \bm{k} \cdot \bm{n}} \hat{p}_{0}(\bm{k}, j-1) \\
+            &=j_{0}(b|\bm{k}|) \hat{p}_{0}(\bm{k}, j-1)
+        \end{split}
+    \end{align}
+    其中$j_{0}(x) \equiv(\sin x) / x$为球面贝塞尔函数。因此可对上式进行递归计算（依次计算$j=1,2, \ldots, N$）得到：
+    \begin{align}
+        \hat{p}_{0}(\bm{k}, N)=\left[j_{0}(b|\bm{k}|)\right]^{N} \hat{p}_{0}(\bm{k}, 0)
+    \end{align}
+    
+    特别的情况对应于初始条件 $p_{0}(\bm{r},0)=\delta（\bm{r}）$，其中 $\delta(\bm{r})$ 是三维 Dirac delta 函数。这表明链的起始端（粒子 0）被限制为原点。可以由此计算公式\eqref{pro-endtoend}。
+
+}
+
+\section{高斯链模型}
+\par{
+    \ref{sec:01}章节的结论可以进行一般化推广。如当键长$b_0$并非常数值时，也能得到类似的结论。如果键长的取值满足高斯分布，且键能为一般形式的弹性势能，我们便得到了高斯链模型，即满足：\begin{align}
+        \psi(r)=\left[\frac{3}{2 \pi b^{2}}\right]^{3 / 2} \exp \left(-\frac{3 r^{2}}{2 b^{2}}\right)
+    \end{align}
+    明显满足$\left\langle r^{2}\right\rangle=b^{2}$。
+
+    由此可以写出系统的能量为：
+    \begin{align}
+        U_{0}\left(\left\{\boldsymbol{R}_{n}\right\}\right)=\frac{3}{2 b^{2}} k_{B} T \sum_{n=1}^{N}\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{n-1}\right)^{2}
+    \end{align}
+    且高斯链模型的概率分布函数为：
+    \begin{align}
+        \label{phi-ideal01}
+        \begin{split}
+            \Psi\left(\left\{\boldsymbol{r}_{n}\right\}\right) &=\prod_{n=1}^{N}\left[\frac{3}{2 \pi b^{2}}\right]^{3 / 2} \exp \left[-\frac{3 \boldsymbol{r}_{n}^{2}}{2 b^{2}}\right] \\
+            &=\left[\frac{3}{2 \pi b^{2}}\right]^{3 N / 2} \exp \left[-\sum_{n=1}^{N} \frac{3\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{n-1}\right)^{2}}{2 b^{2}}\right]
+        \end{split}
+    \end{align}
+    更一般地，我们可以用连续函数来描述高斯链，即可以将$\boldsymbol{R}_{n}-\boldsymbol{R}_{n-1}$替换为$\partial \boldsymbol{R}_{\boldsymbol{n}} / \partial \boldsymbol{n}$，故上式可以重写为：
+    \begin{align}
+        \Psi\left[\boldsymbol{R}_{n}\right]=\left[ \frac{3}{2 \pi b^{2}}\right]^{3 / 2} \exp \left[-\frac{3}{2 b^{2}} \int_{0}^{N} \mathrm{~d} n\left(\frac{\partial \boldsymbol{R}_{n}}{\partial n}\right)^{2}\right]
+    \end{align}
+    这一分布被称为Wiener分布。
+
+    且有约化分布函数\upcite{Glenn2006The}：
+    \begin{align}
+        p_{0}(\bm{r}, s+\Delta s)=\int {\rm d}(\Delta \bm{r}) \Phi(\Delta \bm{r} ; \bm{r}-\Delta \bm{r}) p_{0}(\bm{r}-\Delta \bm{r}, s)
+    \end{align}
+}
+
+\subsection{配分函数与传播子}
+\par{
+    特别的，在场论推导中，我们可以将粒子的非键连相互作用看作粒子和场的相互作用。由此可以重写势能函数为：
+    \begin{align}
+        \label{U0-ideal}
+        \begin{split}
+            U\left(\bm{r}^{N+1}\right) &=U_{0}\left(\bm{r}^{N+1}\right)+U_{1}\left(\bm{r}^{N+1}\right) \\
+            &=\sum_{i=1}^{N} h\left(\left|\bm{r}_{i}-\bm{r}_{i-1}\right|\right)+k_{B} T \sum_{i=0}^{N} w\left(\bm{r}_{i}\right)
+        \end{split}
+    \end{align}
+    其中第一项$U_{0}\left(\bm{r}^{N+1}\right)$表示键连相互作用，即相邻成键粒子间的相互作用能。而第二项$U_{1}\left(\bm{r}^{N+1}\right)$为非键连相互作用，即粒子与其他非成键粒子的相互作用，在场论中可以看作粒子与外场的相互作用。因此在离散高斯链模型中，有：$h(x)=3 k_{B} T x^{2} /\left(2 b^{2}\right)$和$\beta U_{1}\left(\bm{r}^{N+1}\right)=\int {\rm d} \bm{r} w(\bm{r}) \hat{\rho}(\bm{r})$。其中密度算符定义为：
+    \begin{align}
+        \label{Q-ideal01}
+        \hat{\rho}(\bm{r})=\sum_{i=0}^{N} \delta\left(\bm{r}-\bm{r}_{i}\right)
+    \end{align}
+
+    由此，我们可以探究在外场作用下，高分子链的构型与理想链（只考虑键连相互作用的高分子链）直接的构型差异。故可以定义正规化配分函数为：
+    \begin{align}
+        Q[w] \equiv \frac{Z[w]}{Z_{0}}=\frac{\int {\rm d} \bm{r}^{N+1} \exp \left[-\beta U\left(\bm{r}^{N+1}\right)\right]}{V\left(\int {\rm d} \bm{b} \exp [-\beta h(|\bm{b}|)]\right)^{N}}
+    \end{align}
+    其反映的是外场的引入对系统构型的影响。其中分母为公式\eqref{Z0-ideal}，即理想链的配分函数。
+
+    将公式\eqref{U0-ideal}代入公式\eqref{Q-ideal01}，可以发现$Q[w]$可以分为成键相互作用项和非成键相互作用项两部分，而其中成键相互作用可用归一化成键转移概率（Normalized bond transition probability）表示：
+    \begin{align}
+        \Phi(\bm{r})=\frac{\exp [-\beta h(|\bm{r}|)]}{\int {\rm d} \bm{r} \exp [-\beta h(|\bm{r}|)]}=\left(\frac{3}{2 \pi b^{2}}\right)^{3 / 2} \exp \left(-\frac{3|\bm{r}|^{2}}{2 b^{2}}\right)
+    \end{align}
+    因此公式\eqref{Q-ideal01}可重写为：
+    \begin{align}
+        \label{Q-ideal02}
+        \begin{split}
+            Q[w]=\frac{1}{V} \int {\rm d} \bm{r}^{N+1} & {\left[\mathrm{e}^{-w\left(\bm{r}_{N}\right)} \Phi\left(\bm{r}_{N}-\bm{r}_{N-1}\right) \mathrm{e}^{-w\left(\bm{r}_{N-1}\right)} \Phi\left(\bm{r}_{N-1}-\bm{r}_{N-2}\right)\right.} \\
+            &\left.\ldots \mathrm{e}^{-w\left(\bm{r}_{2}\right)} \Phi\left(\bm{r}_{2}-\bm{r}_{1}\right) \mathrm{e}^{-w\left(\bm{r}_{1}\right)} \Phi\left(\bm{r}_{1}-\bm{r}_{0}\right) \mathrm{e}^{-w\left(\bm{r}_{0}\right)}\right]
+        \end{split}
+    \end{align}
+    不难发现公式\eqref{Q-ideal02}中存在一定的递归关系，我们定义传播子$q(\bm{r}, j ;[w])$以进一步描述：
+    \begin{gather}
+        q(\bm{r}, 0 ;[w])=\exp [-w(\bm{r})]\\
+        q(\bm{r}, j+1 ;[w])=\exp [-w(\bm{r})] \int {\rm d} \bm{r}^{\prime} \Phi\left(\bm{r}-\bm{r}^{\prime}\right) q\left(\bm{r}^{\prime}, j ;[w]\right)
+    \end{gather}
+    同时有：
+    \begin{align}
+        Q[w]=\frac{1}{V} \int {\rm d} \bm{r} q(\bm{r}, N ;[w])
+    \end{align}
+    其中$q(\bm{r}, j ;[w])$表示第$j+1$位原子处在$\bm{r}$处的统计权重。
+
+    传播子更重要的应用在于其可以对正规化配分函数$Q[w]$进行分解，即考虑链中某个节点编号为$j$，有：
+    \begin{align}
+        Q[w]=\frac{1}{V} \int {\rm d} \bm{r} q(\bm{r}, N-j ;[w]) \exp [w(\bm{r})] q(\bm{r}, j ;[w])
+    \end{align}
+    其表示分别从链的两段到达$j$节点的概率累计（本质是对配分函数\eqref{Q-ideal02}在节点$j$处进行拆分）。
+
+    类似的，在连续高斯链模型中，上述推导思路同样适用。既有定义密度算符为：
+    \begin{align}
+        \hat{\rho}(\bm{r})=\int_{0}^{N} {\rm d}s \delta(\bm{r}-\bm{r}(s))
+    \end{align}
+    且有正规化配分函数为：
+    \begin{align}
+        \begin{split}
+            Q[w] \equiv & \frac{Z[w]}{Z_{0}}=\frac{\int \mathcal{D} [\bm{r}] \exp \left(-\beta U_{0}[\bm{r}]-\beta U_{1}[\bm{r}, w]\right)}{\int \mathcal{D} [\bm{r}] \exp \left(-\beta U_{0}[\bm{r}]\right)}\\
+            = & \frac{1}{V} \int {\rm d} \bm{r}^{N_{s}+1} {\left[\mathrm{e}^{-\Delta s w\left(\bm{r}_{N_{s}}\right)} \Phi\left(\bm{r}_{N_{s}}-\bm{r}_{N_{s}-1}\right) \mathrm{e}^{-\Delta s w\left(\bm{r}_{N_{s}-1}\right)}\right.} \\
+            & \times \quad \Phi\left(\bm{r}_{N_{s}-1}-\bm{r}_{N_{s}-2}\right) \ldots \mathrm{e}^{-\Delta s w\left(\bm{r}_{2}\right)} \\
+            & \times \left.\Phi\left(\bm{r}_{2}-\bm{r}_{1}\right) \mathrm{e}^{-\Delta s w\left(\bm{r}_{1}\right)} \Phi\left(\bm{r}_{1}-\bm{r}_{0}\right) \mathrm{e}^{-\Delta s w\left(\bm{r}_{0}\right)}\right]
+        \end{split}
+    \end{align}
+    代入公式\eqref{phi-ideal01}并令$\Delta s \equiv N / N_{s}$即可得到：
+    \begin{gather}
+        Q[w]=\frac{1}{V} \int {\rm d} \bm{r} q(\bm{r}, N ;[w])\\
+        q(\bm{r}, 0 ;[w])=\exp [-\Delta s w(\bm{r})]\\
+        \label{q-01}
+        q(\bm{r}, s+\Delta s ;[w])=\exp [-\Delta s w(\bm{r})] \int {\rm d} \bm{r}^{\prime} \Phi\left(\bm{r}-\bm{r}^{\prime}\right) q\left(\bm{r}^{\prime}, s ;[w]\right)
+    \end{gather}
+    其中，当$\Delta s \rightarrow 0$时，可以对公式\eqref{q-01}进行积分拓展\upcite{Glenn2006The}，从而得到扩散方程：
+    \begin{align}
+        \label{q-02}
+        \frac{\partial}{\partial s} q(\bm{r}, s ;[w])=\frac{b^{2}}{6} \nabla^{2} q(\bm{r}, s ;[w])-w(\bm{r}) q(\bm{r}, s ;[w])
+    \end{align}
+}
+
+\subsection{密度算符与矩}
+\par{
+    首先，我们考虑计算受化学势$\omega(\bm{r})$影响的单个柔性聚合物的平均粒子数（段数，segment）密度的问题。此密度可定义为：
+    \begin{align}
+        \rho(\bm{r} ;[w]) \equiv\langle\hat{\rho}(\bm{r})\rangle_{[w]}
+    \end{align}
+    可以注意到$\omega[\bm{r}]$和$\hat{\rho}(\bm{r})$是共轭变量，因此$-\ln{Q[\omega]}$对$\omega[\bm{r}]$的泛函导数即为$\hat{\rho}(\bm{r})$平均值。如在离散高斯链的模型中，可以得到如下等式：
+    \begin{align}
+        -\frac{\delta \ln Q\lfloor w\rfloor}{\delta w(\bm{r})}=-\frac{1}{Q[w]} \frac{\delta Q\lfloor w\rfloor}{\delta w(\bm{r})}=\langle\hat{\rho}(\bm{r})\rangle_{[w]}
+    \end{align}
+
+    先以泛函的形式重新表示单链的配分函数，即有：
+    \begin{align}
+        Q[w] \equiv \frac{Z[w]}{Z_{0}}=\frac{\int \mathcal{D} [\bm{r}] \exp \left(-\beta U_{0}[\bm{r}]-\beta U_{1}[\bm{r}, w]\right)}{\int \mathcal{D} [\bm{r}] \exp \left(-\beta U_{0}[\bm{r}]\right)}
+    \end{align}
+    既有：
+    \begin{align}
+        \begin{split}
+            \frac{\delta Q[w]}{\delta w(\bm{r})} 
+            = & \frac{1}{V} \sum_{j=0}^{N} \int {\rm d} \bm{r}^{N+1}\left[\mathrm{e}^{-w\left(\bm{r}_{N}\right)} \Phi\left(\bm{r}_{N}-\bm{r}_{N-1}\right) \mathrm{e}^{-w\left(\bm{r}_{N-1}\right)} \Phi\left(\bm{r}_{N-1}-\bm{r}_{N-2}\right)\right.\\
+            &\times \quad \ldots \mathrm{e}^{-w\left(\bm{r}_{j}\right)}(-1) \delta\left(\bm{r}-\bm{r}_{j}\right) \Phi\left(\bm{r}_{j}-\bm{r}_{j-1}\right) \mathrm{e}^{-w\left(\bm{r}_{j-1}\right)}\\
+            &\times \left. \quad \ldots \mathrm{e}^{-w\left(\bm{r}_{2}\right)} \Phi\left(\bm{r}_{2}-\bm{r}_{1}\right) \mathrm{e}^{-w\left(\bm{r}_{1}\right)} \Phi\left(\bm{r}_{1}-\bm{r}_{0}\right) \mathrm{e}^{-w\left(\bm{r}_{0}\right)}\right]\\
+            = & -\frac{\mathrm{e}^{w(\bm{r})}}{V} \sum_{j=0}^{N} q(\bm{r}, N-j ;[w]) q(\bm{r}, j ;[w]) \\
+            = & -\frac{\mathrm{e}^{w(\bm{r})}}{V} \int {\rm d}s \, q(\bm{r}, N-s ;[w]) q(\bm{r}, s ;[w]) \; \text{(连续形式)}         
+        \end{split}
+    \end{align}
+    因此可以得到：
+    \begin{align}
+        \rho(\bm{r} ;[w])=\frac{\mathrm{e}^{w(\bm{r})}}{V Q[w]} \sum_{j=0}^{N} q(\bm{r}, N-j ;[w]) q(\bm{r}, j ;[w])
+    \end{align}
+    取连续条件$N_{s} \rightarrow \infty, \Delta s=N / N_{s} \rightarrow 0$有；
+    \begin{gather}
+        \rho(\bm{r} ;[w])=\int_{0}^{N} {\rm d} s \rho(\bm{r}, s ;[w])\\
+        \rho(\bm{r}, s ;[w])=\frac{1}{V Q[w]} q(\bm{r}, N-s ;[w]) q(\bm{r}, s ;[w])
+    \end{gather}
+
+    更一般地，在数学上可将配分函数视为系统的矩母函数，因此可求得其各阶矩的大小。以高斯链模型为例，我们可以发现其一阶矩即为密度算符：
+    \begin{align}
+        \langle\hat{\rho}(\bm{r})\rangle_{[w]}=-\frac{\delta \ln Q[w]}{\delta w(\bm{r})}=-\frac{1}{Q[w]} \frac{\delta Q[w]}{\delta w(\bm{r})}
+    \end{align}
+    类似地，可以写出二阶矩的表达式为：
+    \begin{align}
+        \left\langle\hat{\rho}(\bm{r}) \hat{\rho}\left(\bm{r}^{\prime}\right)\right\rangle_{[w]}=\frac{1}{Q[w]} \frac{\delta^{2} Q[w]}{\delta w(\bm{r}) \delta w\left(\bm{r}^{\prime}\right)}
+    \end{align}
+    根据求导法则，不难得到：
+    \begin{align}
+        \left\langle\hat{\rho}(\bm{r}) \hat{\rho}\left(\bm{r}^{\prime}\right)\right\rangle_{[w]}-\langle\hat{\rho}(\bm{r})\rangle_{[w]}\left\langle\hat{\rho}\left(\bm{r}^{\prime}\right)\right\rangle_{[w]}=\frac{\delta^{2} \ln Q[w]}{\delta w(\bm{r}) \delta w\left(\bm{r}^{\prime}\right)}
+    \end{align}
+    
+    代入公式\eqref{q-01}即可对上式进行求解，有：
+    \begin{align}
+        \begin{split}
+        \left\langle\hat{\rho}(\bm{r}) \hat{\rho}\left(\bm{r}^{\prime}\right)\right\rangle_{[w]} &=\frac{1}{V Q[w]} \int_{0}^{N} {\rm d} s \int_{0}^{s} {\rm d} s^{\prime} q(\bm{r}, N-s ;[w]) \\
+        & \times g\left(\bm{r}, \bm{r}^{\prime}, s-s^{\prime} ;[w]\right) q\left(\bm{r}^{\prime}, s^{\prime} ;[w]\right) \\
+        &+\frac{1}{VQ[w]} \int_{0}^{N} {\rm d} s^{\prime} \int_{0}^{s^{\prime}} {\rm d} s q\left(\bm{r}^{\prime}, N-s^{\prime} ;[w]\right) \\
+        & \times g\left(\bm{r}^{\prime}, \bm{r}, s^{\prime}-s ;[w]\right) q(\bm{r}, s ;[w])
+        \end{split}
+    \end{align}
+    其中$g\left(\bm{r}, \bm{r}^{\prime}, s ;[w]\right)$满足公式\eqref{q-02}，即表示边界受到限制的传播子\upcite{Glenn2006The}：
+    \begin{gather}
+        \frac{\partial}{\partial s} g\left(\bm{r}, \bm{r}^{\prime}, s ;[w]\right)=\frac{b^{2}}{6} \nabla^{2} g\left(\bm{r}, \bm{r}^{\prime}, s ;[w]\right)-w(\bm{r}) g\left(\bm{r}, \bm{r}^{\prime}, s ;[w]\right) \\
+        g\left(\bm{r}, \bm{r}^{\prime}, 0 ;[w]\right)=\delta\left(\bm{r}-\bm{r}^{\prime}\right)
+    \end{gather}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.8]{figure/test.png}
+    \end{figure}
+}
+
+\subsection{结构因子}
+\par{
+    聚合物的大小可以通过各种散射实验（光散射，小角度X射线散射和中子散射等）来测量。假设聚合物由在任意$R$处的一系列散射单元组成，这些单元具有散射振幅$a$。且散射向量$k\equiv k_f-k_i$（$k_i$和$k_f$是入射和散射光束的波矢量）处的散射强度写为:
+    \begin{align}
+        \sum_{n, m=1}^{N_{0}} a_{n} a^{*}_{m} \exp \left[\mathrm{i} \boldsymbol{k} \cdot\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)\right]
+    \end{align}
+    其中$N_0$表示系统的全部散射单元数。特别的，对于均质的聚合物，其各单元的散射强度相同，即上式可写为：
+    \begin{align}
+        |a|^{2} \sum_{n, m=1}^{N_{0}} \exp \left[i \bm{k} \cdot\left(\bm{R}_{n}-\bm{R}_{m}\right)\right]
+    \end{align}
+    由此我们可以定义结构因子$g(\bm{k})$为与系统大小（即$N_0$）无关的变量，即表示无限大系统中单个散射单元对散射的贡献。具体表示为：
+    \begin{align}
+        g(\boldsymbol{k}) \equiv \frac{1}{N_{0}} \sum_{n, m}^{N_{0}}\left\langle\exp \left[\mathrm{i} \boldsymbol{k} \cdot\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)\right]\right\rangle
+    \end{align}
+
+    在理想模型中，我们暂时不考虑聚合物之间的影响，即考虑无限稀溶液。并引入聚合物段数$N$以替代$N_0$，即可得到：
+    \begin{align}
+        g(\boldsymbol{k}) \equiv \frac{1}{N} \sum_{n, m}^{N}\left\langle\exp \left[\mathrm{i} \boldsymbol{k} \cdot\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)\right]\right\rangle=\frac{1}{N} \sum_{n, m}\left\langle\frac{\sin \left(|\boldsymbol{k}|\left|\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right|\right)}{|\boldsymbol{k}|\left|\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right|}\right\rangle
+    \end{align}
+    而通常我们关心的有效散射都集中在小波区间内，即$k \rightarrow 0$。因此可以继续对上式进行展开，得到：
+    \begin{align}
+        \begin{split}
+            g(k) &=\frac{1}{N} \sum_{n, m}\left\langle 1-\frac{1}{6} k^{2}\left(R_{n}-R_{m}\right)^{2}+\ldots\right\rangle \\
+            &=N\left(1-\frac{1}{3} k^{2} R_{g}^{2}+\ldots\right)
+            \end{split}
+    \end{align}
+
+    而对于高斯链，我们有$\left\langle\exp \left[\mathrm{i} \boldsymbol{k} \cdot\left(\boldsymbol{R}_{n}-\boldsymbol{R}_{m}\right)\right]\right\rangle=\exp \left[-\frac{b^{2} \boldsymbol{k}^{2}}{6}|n-m|\right]$，进而得到\upcite{Liftes-PairCorrelationFunction}：
+    \begin{gather}
+        g(k)=\frac{1}{N} \int_{0}^{N} \mathrm{~d} n \int_{0}^{N} \mathrm{~d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right]=N f\left(k^{2} R_{g}^{2}\right) \\
+        f(x)=\frac{2}{x^{2}}\left(\mathrm{e}^{-x}-1+x\right)
+    \end{gather}
+}
+
+\end{sloppypar}
+\end{document}

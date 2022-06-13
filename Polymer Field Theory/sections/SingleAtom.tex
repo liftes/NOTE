@@ -1,0 +1,57 @@
+\documentclass[../PolymerFieldTheory.tex]{subfiles}
+\begin{document}
+\begin{sloppypar}
+
+\par{
+    假设在确定体积$V$的三维空间内含有$n$个原子，有全体原子的空间分布情况可表示为$\bm{r^n}=(\bm{r_1},\bm{r_2},\bm{r_3},\cdots,\bm{r_n})$，其中$\bm{r_j}$表示第$\bm{j}$个原子在三维空间中的位置坐标。我们需要考虑系统的总势能能够分解为原子间的两两相互作用的势能，则可写出正则系综（$n$，$V$和温度$T$保持不变）下的配分函数：
+    \begin{align}
+        \label{Z01}
+        Z=\frac{1}{n!} \int {\rm d} \bm{r}^n {\rm exp}[-\beta H_0 -\beta/2 \sum_{j \neq k}^n \mu (\vert \bm{r}_j - \bm{r}_k \vert )]
+    \end{align}
+    其中$H_0$为粒子本身的动能哈密顿量，$\mu(r)$表示原子间的两两相互作用势能，$\beta=1/kT$。方便计算，可以用$\delta$函数重写原子间的二体作用势能，即引入粒子密度算符$\widehat{\rho}\rightarrow\\\sum_l{\delta(r-r_l)} $，从而将两体相互作用改写为密度场与密度场之间的相互作用（由于不同原子间的相互作用类型相同、性质相同，即可用同一函数表示）。由此可以对公式\eqref{Z01}进行重写：
+    \begin{align}
+        \label{Z02}
+        Z =\frac{1}{n!} \int {\rm d} \bm{r}^n {\rm exp}[-\beta H_0- \beta U(\bm{r^n})]
+    \end{align}
+    \begin{align}
+        U(\bm{r}^n) = 1/2\int {\rm d}\bm{r} \int {\rm d}\bm{r'} \widehat{\rho}(\bm{r}) \mu[\vert \bm{r}-\bm{r}' \vert + \varepsilon] \widehat{\rho}(\bm{r'}) = \mathcal{H} [\rho]
+    \end{align}
+    其中$\varepsilon \rightarrow 0^{+}$。
+
+    下一步，易知密度场在全空间的积分和为1(定义)。表示为：
+    \begin{align}
+        \int \mathcal{D} [\rho] \delta(\rho-\widehat{\rho}) = 1
+    \end{align}
+    其中$\int \mathcal{D} [\rho]$表示在全空间中对密度的积分，附加的$\delta$函数则是为了保证$\rho$和$\widehat{\rho}$的一致性。可以对$\delta$函数进行傅里叶展开，从而引入共轭场$\omega$。即：
+    \begin{align}
+        \label{densityEqual_F}
+        \begin{split}
+            1 & = \int \mathcal{D} [\rho (\bm{r})] \delta(\rho-\widehat{\rho}) \\
+            & = \int \mathcal{D}[\rho(\bm{r})] \frac{1}{(2 \pi)^3}  
+            \int^{(3)}  \mathcal{D}[\omega(\bm{r})] \,
+            {\rm exp} \left[ i \omega(\bm{r}) (\rho(\bm{r})-\widehat{\rho}) \right] 
+        \end{split}
+    \end{align}
+
+    将公式\eqref{densityEqual_F}代入公式\eqref{Z02}中，即可得到：
+    \begin{align}
+        Z  & = \frac{1}{n!} \int {\rm d}\bm{r}^n \mathrm{e}^{-\beta H_0- \beta \mathcal{H} [\rho]} \nonumber \\
+        & = \frac{1}{n!} \int {\rm d}\bm{r}^n \int \mathcal{D}[\rho(\bm{r})] \frac{1}{(2 \pi)^3}  \int^{(3)}  \mathrm{e}^{i \omega(\bm{r}) (\rho(\bm{r}) - \widehat{\rho})} \mathcal{D}[\omega(\bm{r})] \mathrm{e}^{-\beta H_0- \beta \mathcal{H} [\rho]} \nonumber  \\
+        & = \int \mathcal{D}[\rho(\bm{r})] \mathrm{e}^{-\beta \mathcal{H}[\rho]} \int^{(3)} \frac{\mathcal{D}[\omega(\bm{r})]}{n! (2 \pi)^3} 
+        \mathrm{e}^{i \omega(\bm{r}) \rho(\bm{r})} 
+        \int {\rm d}\bm{r}^n \mathrm{e}^{-i \omega \widehat{\rho} - \beta \widehat{H}_0} \nonumber \\
+        & = \int \mathcal{D}[\rho(\bm{r})] \mathrm{e}^{-\beta \mathcal{H}[\rho]} \int^{(3)} \frac{\mathcal{D}[\omega(\bm{r})]}{n! (2 \pi)^3} 
+        \mathrm{e}^{i \omega(\bm{r}) \rho(\bm{r})} 
+        (\int {\rm d}\bm{r} \mathrm{e}^{-i \omega (r) \sum_l{\delta(r-r)}- \beta E_i})^n \nonumber \\
+        & = \int \mathcal{D}[\rho(\bm{r})] \mathrm{e}^{-\beta \mathcal{H}[\rho]} \int^{(3)} \frac{\mathcal{D}[\omega(\bm{r})]}{n! (2 \pi)^3} 
+        \mathrm{e}^{i \omega(\bm{r}) \rho(\bm{r})} 
+        (\int {\rm d}\bm{r} \mathrm{e}^{-i \omega (r) - \beta E_i})^n \nonumber  \\
+        & = \int \mathcal{D}[\rho(\bm{r})] \mathrm{e}^{-\beta \mathcal{H}[\rho]} \int^{(3)} \frac{\mathcal{D}[\omega(\bm{r})]}{n! (2 \pi)^3} 
+        \mathrm{e}^{i \omega(\bm{r}) \rho(\bm{r})} (V\mathcal{Q}[i\omega])^n \nonumber    \\
+        \mbox{(重写泛函形式)} & = \mathrm{e}^{-\beta \mathcal{F}^{id}} \int \mathcal{D}[\rho] \mathrm{e}^{-\beta \mathcal{H}[\rho]} \int \frac{\mathcal{D}[\omega]}{(2 \pi)^3} \mathrm{e}^{-\mathcal{F}^{en}[\rho,\omega]}
+    \end{align}
+    其中$\rho=\rho(\bm{r})$和$\omega=\omega(\bm{r})$为泛函形式的简记，$\mathcal{Q}[i\omega]=V^{-1} \int {\rm d}\bm{r} \mathrm{e}^{-i \omega (r) - \beta E_i}$为单个原子的配分函数，即$E_i$表示单个原子的动能。$\mathcal{F}^{en}[\rho,\omega]\equiv -i \omega \rho-n \ln{\mathcal{Q}[i\omega]}$为关联自由能，$-\beta \mathcal{F}^{id} \equiv -\ln(V^n/n!)$为单原子自由能。
+}
+
+\end{sloppypar}
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass[12pt, a4paper, oneside, UTF8]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+\usepackage{subfiles}
+\usepackage{geometry} % 页边距
+\geometry{a4paper,scale=0.75}
+\usepackage{ulem} % 下划线控制
+\usepackage{fancyhdr} % 页面页眉页脚控制
+\usepackage{xcolor} % 颜色控制
+\usepackage{cite} % 导入引用的包，能够使用\cite
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+\usepackage{gbt7714}
+% 目录控制
+% \usepackage{titletoc}
+\usepackage{setspace}
+\usepackage{blindtext}
+
+\hypersetup{ % 超链接颜色控制
+colorlinks=true,
+linkcolor=black,
+citecolor=black,
+anchorcolor=gray,
+urlcolor=gray,
+}
+
+
+\title{{\Huge{\textbf{场论推导基础}}}}
+\author{赵胜达}
+\date{}
+    
+\pagestyle{fancy} % 页眉页脚控制
+\lhead{}
+\chead{}
+
+\setlength{\baselineskip}{1.7em} % 行间距
+\setlength{\parindent}{2em}
+\setlength{\parskip}{1em}
+\setlength{\headheight}{16pt}
+
+\ctexset{ % 各级别标题设置
+    section = {
+    format={\flushleft \sffamily \heiti \zihao {3}},
+    beforeskip={24pt},afterskip={6pt},},
+    subsection = {
+    format={\flushleft\sffamily\heiti\zihao{4}},
+    beforeskip={12pt},afterskip={6pt},}
+}
+
+% 颜色控制
+\definecolor{lightgrayblue}{rgb}{0.30,0.30,0.50}
+
+\begin{document}
+\begin{sloppypar}
+
+\maketitle
+\pagenumbering{roman}
+\setcounter{page}{1}
+\newpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\begin{spacing}{0.5}
+    \tableofcontents
+\end{spacing}
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+% ==========================================
+\chapter{单原子流体}
+\subfile{sections/SingleAtom.tex}
+% ==========================================
+\chapter{随机行走模型}
+\subfile{sections/RandomWalk.tex}
+% ==========================================
+\chapter{二嵌段聚合物溶液}
+\subfile{sections/Diblock-Copolymer.tex}
+% ==========================================
+\chapter{聚电解质溶液}
+\subfile{sections/Polyelectrolytes.tex}
+
+\bibliographystyle{gbt7714-numerical} % 参考文献排版风格
+\bibliography{ref} % 导入lib，ref为“ref.lib"的文件名
+
+\end{sloppypar}
+\end{document}
