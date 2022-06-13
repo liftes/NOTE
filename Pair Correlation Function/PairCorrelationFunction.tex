@@ -18,6 +18,8 @@
 colorlinks=true,
 linkcolor=black,
 citecolor=black,
+anchorcolor=gray,
+urlcolor=gray,
 }
 
 % 罗马字符
@@ -272,124 +274,123 @@ citecolor=black,
     \end{figure}
     一般地，对于含且只含有A、B两种组分的高分子体系，公式\eqref{C-factors}恒成立。如图\ref{Figure-SplitPloyer}，现在考虑高分子系统由A、B两种组分构成，且有一A组分支链可在A链条上任意滑动。其中A组分主链和支链的片段长度相等且等于B组分主链长度，既有$N_{A1}=N_{A2}=N_{B}=N/3$。现在需要考虑该高分子链的结构因子。可知分别求解$C_{AA}(x)$，$C_{BB}(x)$，$C_{AB}(x)$三个函数即可。
 
-    不妨定义$f \equiv \kappa / N_{A1}$，且$f$先取固定值，最后对其做在$[0,1]$区间上的积分。特别地，将滑动支链部分和A组分主链视为同组分的星形高分子，取编号$num=\rmnum{1},\rmnum{2},\rmnum{3}$分别表征三段不同的支链，$\rmnum{1}$表示滑动支链，$\rmnum{1}$表示主链左侧，$\rmnum{3}$表示主链右侧，可得其结构因子在形式上写为（$num_1 \neq num_2$）：
-    \begin{align}
-        C_{AA}'(x) = 3 \times 2 F^{f}_{num_1-num_2}(x) + 3 g^{f}_{D-num}(x)
-    \end{align}
-    而另一侧B组分主链视为普通线性高斯链，有结构因子：
-    \begin{align}
-        C_{BB}(x) = g^{\prime}_D(x) = \frac{2}{x^{2}}\left[\exp{(-\frac{x}{3})}-1+\frac{x}{3}\right]
-    \end{align}
-    再考虑A组分与B组分间的相互作用，依次考虑为两段长A组分与B组分构成二嵌段聚合物的结构因子，再减去两者重叠部分的结构因子即可。即有形式上写为：
-    \begin{align}
-        C_{AB}'(x) = 2F^f(x) - F^f(x)
-    \end{align}
-    其中$F_{b}(x)$表示A组分分支链与主链间相互作用产生的结构因子附加项。
+    不妨定义$f \equiv \kappa / N_{A1}$，且$f$先取固定值，最后对其做在$[0,1]$区间上的积分。不同组分浓度可变后整条链的结构因子可以按照等式$C(x)=C_{AA}(x)+2C_{AB}(x)+C_{BB}(x)$进行展开。其中每一项又由可变链长的单链结构因子$g_D(x,n)$和可变链长的二嵌段结构因子$F(x,m,n)$组成，其中$m,n$表示对应支链的片段长度。
 
-    即可得到以下表达式：
+    由于$f_{A}$与$f_{A2}$的定义并不独立，为方便推导可以重新定义A组分浓度$\phi_A = f_A $，滑动支链浓度$\phi_a = N_{A2}/(N_{A1}+N_{A2})$。即保证了$\phi_A$与$\phi_a$的独立性。
+
+    一般地，依旧取整条链的片段数$N$作为推导标准，即定义有$x=k^2R_g^2$，其中$R_g=Nb^2/6=(N_{A1}+N_{A2}+N_{B})b^2/6$为整条链的均方回转半径。则可进行以下计算：
     \begin{align}
         \begin{split}
-            F^f_{\rmnum{2}-\rmnum{3}} = &\frac{1}{N^2} \int_{0}^{\kappa} \mathrm{d}n \int_{\kappa}^{N_{A1}} \mathrm{d}m \exp \left[\frac{x}{N}(n-m)\right] ~(n<m)\\
-            = &\frac{1}{x^2} \int_{0}^{\frac{fx}{3}} \mathrm{d}n \int_{\frac{fx}{3}}^{\frac{x}{3}} \mathrm{d}m \exp \left[(n-m)\right]\\
-            = &\frac{1}{x^2} \left[\exp{(-\frac{x}{3})} 
-            - \exp{(-\frac{fx}{3})}
-            - \exp{(-\frac{(1-f)x}{3})} + 1\right]\\
-            &\text{(主链A左侧-主链A右侧)}
+            g_D(x,n) = \frac{g(x)}{N} =
+            &\frac{1}{N^2} \int_{0}^{n} \mathrm{d} p \int_{0}^{n} \mathrm{d} q \exp \left[-\frac{x}{N}|p-q|\right]\\
+            =&\frac{2}{x^2}
+            \int_0^{nx/N} \mathrm{d}p \mathrm{~e}^{-p} \int_0^{p} \mathrm{d}q \mathrm{~e}^{q}\\
+            =&\frac{2}{x^{2}}\left[\exp{(-\frac{n}{N})x}-1+\frac{n}{N}x\right]
         \end{split}\\
         \begin{split}
-            F^f_{\rmnum{1}-\rmnum{2}} = &\frac{1}{N^2} \int_{0}^{\kappa} \mathrm{d}n \int_{\kappa}^{\kappa+N_{A2}} \mathrm{d}m \exp \left[\frac{x}{N}(n-m)\right] ~(n<m)\\
-            = &\frac{1}{x^2} \int_{0}^{\frac{fx}{3}} \mathrm{d}n \int_{\frac{fx}{3}}^{\frac{x(1+f)}{3}} \mathrm{d}m \exp \left[(n-m)\right]\\
-            = &\frac{1}{x^2} \left[\exp{(-\frac{x(1+f)}{3})} 
-            - \exp{(-\frac{fx}{3})}
-            - \exp{(-\frac{x}{3})} + 1\right]\\
-            &\text{(主链A左侧-滑动支链)}
-        \end{split}
-    \end{align}
-    \begin{align}
-        \begin{split}
-            F^f_{\rmnum{1}-\rmnum{3}} = &\frac{1}{N^2} \int_{0}^{N_{A1}-\kappa} \mathrm{d}n \int_{N_{A1}-\kappa}^{N_{A2}+N_{A1}-\kappa} \mathrm{d}m \exp \left[\frac{x}{N}(n-m)\right] ~(n<m)\\
-            = &\frac{1}{x^2} \int_{0}^{\frac{x(1-f)}{3}} \mathrm{d}n \int_{\frac{x(1-f)}{3}}^{\frac{x(2-f)}{3}} \mathrm{d}m \exp \left[(n-m)\right]\\
-            = &\frac{1}{x^2} \left[\exp{(-\frac{x(2-f)}{3})} 
-            - \exp{(-\frac{x(1-f)}{3})}
-            - \exp{(-\frac{x}{3})} + 1\right]\\
-            &\text{(主链A右侧-滑动支链)}
-        \end{split}\\
-        \begin{split}
-            g^{}_{D-\rmnum{1}} =& \frac{2}{x^{2}}\left[\exp{(-\frac{x}{3})}-1+\frac{x}{3}\right]\\
-            &\text{(滑动支链)}
-        \end{split}\\
-        \begin{split}
-            g^{}_{D-\rmnum{2}} =& \frac{2}{x^{2}}\left[\exp{(-\frac{xf}{3})}-1+\frac{xf}{3}\right]\\
-            &\text{(主链A左侧)}
-        \end{split}\\
-        \begin{split}
-            g^{}_{D-\rmnum{3}} =& \frac{2}{x^{2}}\left[\exp{(-\frac{x(1-f)}{3})}-1+\frac{x(1-f)}{3}\right]\\
-            &\text{(主链A右侧)}
-        \end{split}
-    \end{align}
-    \begin{align}
-        \begin{split}
-            C_{AA}^{\prime}(x,f) =& 
-            2F^f_{\rmnum{2}-\rmnum{3}}
-            +2F^f_{\rmnum{1}-\rmnum{2}}
-            +2F^f_{\rmnum{1}-\rmnum{3}}
-            +g^{}_{D-\rmnum{1}}+g^{}_{D-\rmnum{2}}+g^{}_{D-\rmnum{3}} \\
-            =&\frac{2}{x^2} \left[\exp{(-\frac{x}{3})} 
-            - \exp{(-\frac{fx}{3})}
-            - \exp{(-\frac{(1-f)x}{3})} + 1\right]\\
-            &+ \frac{2}{x^2} \left[\exp{(-\frac{x(1+f)}{3})} 
-            - \exp{(-\frac{fx}{3})}
-            - \exp{(-\frac{x}{3})} + 1\right]\\
-            &+ \frac{2}{x^2} \left[\exp{(-\frac{x(2-f)}{3})} 
-            - \exp{(-\frac{x(1-f)}{3})}
-            - \exp{(-\frac{x}{3})} + 1\right]\\
-            &+\frac{2}{x^{2}}\left[\exp{(-\frac{x}{3})}-1+\frac{x}{3}\right]\\
-            &+\frac{2}{x^{2}}\left[\exp{(-\frac{xf}{3})}-1+\frac{xf}{3}\right]\\
-            &+\frac{2}{x^{2}}\left[\exp{(-\frac{x(1-f)}{3})}-1+\frac{x(1-f)}{3}\right]\\
-        \end{split}
-    \end{align}
-    \begin{align}
-        \begin{split}
-            C_{AB}^{\prime}(x,f) =  & \frac{1}{x^2} 
-            \left[\exp{(-\frac{2x}{3})} 
-            - 2 \exp{(-\frac{x}{3})} + 1\right]\\
-            &\text{(主链A-主链B)}\\
-            & + \frac{1}{x^2} 
-            \left[\exp{(-\frac{x(3-f)}{3})} 
-            -  \exp{(-\frac{x(2-f)}{3})} 
-            -  \exp{(-\frac{x}{3})} + 1\right]\\
-            &\text{(滑动支链A-部分主链A-主链B)}\\
-            & - \frac{1}{x^2} 
-            \left[\exp{(-\frac{x(2-f)}{3})} 
-            -  \exp{(-\frac{x}{3})} 
-            -  \exp{(-\frac{x(1-f)}{3})} + 1\right]\\
-            &\text{(部分主链A-主链B)}\\
+            F(x,m,n) = \frac{g(x)}{N} = 
+            &\frac{1}{N^2} \int_{0}^{m} \mathrm{d}p \int_{m}^{n+m} \mathrm{d}q \exp \left[\frac{x}{N}(p-q)\right] ~(p<q)\\
+            = &\frac{1}{x^2} \left[\exp{(-\frac{m+n}{N}x)} 
+            - \exp{(-\frac{m}{N}x)}
+            - \exp{(-\frac{n}{N})} + 1\right]
         \end{split}
     \end{align}
 
-    考虑支链A可以滑动，既有：
-    \begin{gather}
-        C_{AA}(x) = \int_0^1 \mathrm{d}f ~ C_{AA}^{\prime}(x,f)\\
-        C_{AB}(x) = \int_0^1 \mathrm{d}f ~ C_{AB}^{\prime}(x,f)
-    \end{gather}
-
-    % 其中$F_{\kappa}(x)$表示A组分聚合物够成的“三支链”构型系统的结构因子，由于支链可滑动，其与支链位置$\kappa$有关。$F_{b}(x)$表示滑动A组分支链与B组分主链间的结构因子。
-    
-    % 不妨假设支链位于$\kappa_0$处保持静止以推导上述函数的表达式。可以得到以下方程：
-    % \begin{align}
-    %     F_{\kappa}^{\prime}(x) =& \frac{1}{N} \int_{0}^{\kappa_0} \mathrm{d} n \int_{N_0}^{N} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right]
-    %     \nonumber \\
-    %     & + \frac{1}{N} \int_{\kappa_0}^{N_{A1}} \mathrm{d} n \int_{N_0}^{N} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right]\\
-    %     F_{b}^{\prime}(x) =& \frac{1}{N} \int_{\kappa_0}^{N_{A1}} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] \text{(支链连接点后的A组分)}
-    %     \nonumber \\
-    %     & + \frac{1}{N} \int_{0}^{\kappa_0} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] \text{(支链连接点前的A组分)}
-    %     \nonumber \\
-    %     & + \frac{1}{N} \int_{N_{0}}^{N} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] \text{(支链的A组分)} \nonumber \\
-    %     = & \frac{1}{N} \int_{0}^{N_{A1}} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] 
-    %     \nonumber \\
-    %     & + \frac{1}{N} \int_{N_{0}}^{N} \mathrm{d} n \int_{N_{A1}}^{N_0} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|n-m|\right] 
-    % \end{align}
+    同样可先假设滑动支链固定在点$\kappa$处，并有$f \equiv \kappa/N_{A1} = \kappa / [N\phi_A(1-\phi_a)]$。即可得到对应的不同组分间的结构因子：
+    \begin{align}
+        \begin{split}
+            C_{AA}^{\prime}(x) =& 2F(x,\kappa,N_{A1}-\kappa) 
+            + 2F(x,\kappa,N_{A2}) 
+            + 2F(x,N_{A1}-\kappa,N_{A2})\\
+            &+ g_D(x,N_{A2})
+            + g_D(x,\kappa)
+            + g_D(x,N_{A1}-\kappa)
+        \end{split}\\
+        \begin{split}
+            C_{BB}(x) =& g_D(x,N_{B})
+        \end{split}\\
+        \begin{split}
+            C_{AB}^{\prime}(x) =& F(x,N_{A1},N_{B}) + F(x,N_{A1}+N_{A2}-\kappa,N_{B}) - F(x,N_{A1}-\kappa,N_{B})
+        \end{split}
+    \end{align}
+    其中有：
+    \begin{gather*}
+        \frac{\kappa}{N} = f\phi_A(1-\phi_a);
+        \frac{N_{A1}}{N} = \phi_A(1-\phi_a);
+        \frac{N_{A2}}{N} = \phi_A\phi_a ;
+        \frac{N_{B}}{N} = 1-\phi_A
+    \end{gather*}
 }
+
+\section{环形高分子}
+\par{
+    环形链的结构因子的推导过程不同于线性链，其主要原因在于两点：一是线性链中聚合物段的平移对称性被破坏，取而代之的是环结构中的旋转对称性，二是环形聚合物的均方回转半径$R_g$与线性链不再相同，从而导致在进行积分变量替换时产生额外的常数系数。
+
+    根据参考文献\upcite{Casassa-358}，我们可以将环上片段的相互作用视作其所有可能连接路径的线性组合。对应环上任意两点间的连接向量$V_{m,n}$，其受到来自$|m-n|$及$N-|m-n|$两段链段的共同约束。同时已知环形链的均方回转半径$\left\langle R^{2}_g\right\rangle=N b^{2} / 12$。
+
+    首先以线性链的均方回转半径为基准定义变量$\frac{b^2}{6} k^2 = \frac{R_g^2}{N} k^2 \equiv \frac{x}{N}$，进而得到环形链上长为$Nf$的链段的结构因子为：
+    \begin{align}
+        \begin{split}
+            g(k,f)=&\frac{1}{N} \int_{0}^{Nf} \mathrm{d} n \int_{0}^{Nf} \mathrm{d} m \exp \left[-\frac{b^{2} k^{2}}{6}|m-n| \times (N-|m-n|)\right]
+        \end{split}
+    \end{align}
+    通过替换变量可得：
+    \begin{align}
+        \begin{split}
+            g(x,f)=&\frac{1}{N} \int_{0}^{Nf} \mathrm{d} n \int_{0}^{Nf} \mathrm{d} m 
+            \exp \left[-\frac{x}{N} |m-n| \times (N-|m-n|)\right]\\
+            =&\frac{1}{N}\frac{N}{x} \int_{0}^{\sqrt{xN}f} \mathrm{d} n \int_{0}^{\sqrt{xN}f} \mathrm{d} m 
+            \exp \left[-\sqrt{xN} |m-n| + |m-n|^2\right] \\
+            &(\sqrt{\frac{x}{N}}m \rightarrow m,
+            \sqrt{\frac{x}{N}}n \rightarrow n)\\
+            =&\frac{2}{x}\int_{0}^{\sqrt{xN}f} \mathrm{d} m
+            \exp{\left[ m^2-\sqrt{xN}m \right]}
+            \int_{0}^{m} \mathrm{d} n
+            \exp{\left[ \sqrt{xN}n + n^2 - 2mn \right]}\\
+            =&\frac{1}{2x} e^{-\frac{p^2}{4}} \left[\sqrt{\pi } (2 f-1) p \left(\text{erfi}\left(\frac{p}{2}\right)-\text{erfi}\left(\frac{p}{2}-f p\right)\right)+2 \left(e^{\frac{p^2}{4}}-e^{\left(f-\frac{1}{2}\right)^2 p^2}\right)\right]
+        \end{split}
+    \end{align}
+    特别地，上式中$p=\sqrt{xN}$（文献中对应的结果为$p=\sqrt{x}$，除此之外结果在形式上完全一致）。而虚误差函数$\text{erfi}(ix)=i \times \text{erf}(x) = \frac{2}{\sqrt{\pi}} \int_{0}^{x} \mathrm{e}^{t^{2}} \mathrm{~d} t $。
+
+    基于此，可以推导环体积分数为$f_r$时的环结构对应的结构因子。只需要改变上式中的积分上下限（$Nf \rightarrow Nff_r$）及对应的限制常数（$N \rightarrow Nf_r$）即可。既有：
+    \begin{align}
+        \begin{split}
+            g_r(x,f,f_r)=&\frac{1}{N} \int_{0}^{Nff_r} \mathrm{d} n \int_{0}^{Nff_r} \mathrm{d} m 
+            \exp \left[-\frac{x}{N} |m-n| \times (Nf_r -|m-n|)\right]\\
+            =&\frac{1}{N}\frac{N}{x} \int_{0}^{\sqrt{xN}ff_r} \mathrm{d} n \int_{0}^{\sqrt{xN}ff_r} \mathrm{d} m 
+            \exp \left[-\sqrt{xN}f_r |m-n| + |m-n|^2\right] \\
+            &(\sqrt{\frac{x}{N}}m \rightarrow m,
+            \sqrt{\frac{x}{N}}n \rightarrow n)\\
+            =&\frac{2}{x}\int_{0}^{\sqrt{xN}ff_r} \mathrm{d} m
+            \exp{\left[ m^2-\sqrt{xN}f_r m \right]}
+            \int_{0}^{m} \mathrm{d} n
+            \exp{\left[ \sqrt{xN}f_r n + n^2 - 2mn \right]}\\
+            =&\frac{1}{2x} e^{-\frac{p^2}{4}} \left[\sqrt{\pi } (2 f-1) p \left(\text{erfi}\left(\frac{p}{2}\right)-\text{erfi}\left(\frac{p}{2}-f p\right)\right)+2 \left(e^{\frac{p^2}{4}}-e^{\left(f-\frac{1}{2}\right)^2 p^2}\right)\right](p=\sqrt{xN}f_r)
+        \end{split}
+    \end{align}
+
+    类似的，可以考虑环体积分数为$f_r$的环上链段与链体积分数为$f_l$的链上链段间的结构因子为：
+    \begin{align}
+        \begin{split}
+            g_{r-l}(x,f_r,f_l) = & 
+            \frac{1}{N}
+            \int_0^{Nf_r}\mathrm{d}m 
+            \int_{Nf_r}^{N(f_r+f_l)} \mathrm{d}n
+            \exp{\left[ \frac{x}{N}[m(Nf_r-m)-n] \right]} \\
+            = & \frac{1}{N}
+            \int_0^{Nf_r}\mathrm{d}m \exp{\left[ \frac{x}{N}m(Nf_r-m) \right]}
+            \int_{Nf_r}^{N(f_r+f_l)} \mathrm{d}n\exp{\left[-\frac{x}{N}n\right]}\\
+            = & \frac{1}{N} \frac{N}{x}
+            \int_0^{Nf_r}\mathrm{d}m \exp{\left[ \frac{x}{N}m(Nf_r-m) \right]}
+            \int_{xf_r}^{x(f_r+f_l)} \mathrm{d}n\exp{\left[-n\right]}
+            \\
+            = & \frac{(\pi N)^{1/2}}{x^{3/2}}
+            \left(e^{f_l x}-1\right) e^{\frac{1}{4} x \left(f_r^2 N-4 (f_l+f_r)\right)}\text{erf}\left(\frac{1}{2} f_r \sqrt{Nx} \right) 
+        \end{split}
+    \end{align}
+    其中误差函数$\operatorname{erf}(x)=\frac{2}{\sqrt{\pi}} \int_{0}^{x} e^{-t^{2}} d t$。
+
+    }
 
 \bibliographystyle{gbt7714-numerical} % 参考文献排版风格
 \bibliography{ref} % 导入lib，ref为“ref.lib"的文件名
