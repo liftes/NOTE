@@ -5,11 +5,17 @@
 \section{相似性与差异性}
     对于聚电解质系统的场论详细推导详细记录在论文中\upcite{Sun-164}，因此此处不再过多罗列详细的推导公式。我们的重点放在库伦作用的引入是如何作用到系统的自由能上并以此改变系统的统计性质的。
 
-    最直接地，库仑相互作用的存在使得系统的配分函数的单个聚合物的e指数项上的哈密顿量中增加了库仑势能作用。即与公式\eqref{Z04}相比，除原有的键连哈密顿量$\mathcal{H}_0$和非键连相互作用哈密顿量$\mathcal{H}_e$之外，还需要考虑系统的库仑势：
+    最直接地，库仑相互作用的存在使得系统的配分函数的单个聚合物的e指数项上的哈密顿量中增加了库仑势能作用。即与公式\eqref{Z04}相比，除原有的键连哈密顿量$\mathcal{H}_0$（文献\eqref{Z04}中对其进行了概率化，公式(2.11)）和非键连相互作用哈密顿量$\mathcal{H}_e$（文献\eqref{Z04}中公式(2.13)）之外，还需要考虑系统的库仑势：
     \begin{align}
         U_{e}\left(\left\{\hat{\rho}_{e}\right\},\{\psi\}\right)=\int d \mathbf{r}\left[\hat{\rho}_{e}(\mathbf{r}) \psi(\mathbf{r})-\frac{\epsilon}{8 \pi}|\nabla \psi(\mathbf{r})|^{2}\right]
     \end{align}
-    其中$\epsilon$为介质的介电常数。
+    其中$\epsilon$为介质的介电常数，$\hat{\rho}_{e}=\hat{\rho}_{A,e}+\hat{\rho}_{I,e}$表示电荷密度，$\psi(\bm{r})$为电荷密度场对应的共轭场。
+    特别地，有聚合物上的电荷密度表示为：
+    \begin{gather}
+        \hat{\rho}_{A, e}(\mathbf{r})=\sum_{i=1}^{n_{0}} \int_{0}^{f Z_{0}} \mathrm{d} t c_{i, A}(t) z_{A} e \delta\left(\mathbf{r}-\mathbf{R}_{i}^{0}(t)\right)\\
+        \hat{\rho}_{I, e}(\mathbf{r})=\sum_{i=1}^{n_{I}} z_{I} e \delta\left(\mathbf{r}-\mathbf{r}_{i}^{I}\right)
+    \end{gather}
+    其中$f$为A组分体积分数，$Z_0$为AB嵌段段数，$Z_C$为离子数，即$N_A=fZ_0,N_B=(1-f)Z_0,N_c=Z_C$。$c_{i,A}(t)$则表示第$i$条聚合物链上的电荷分布。$z_A$为聚合物电荷价数（$z_I$为离子电荷价数）以及$e$表示元电荷量。
 
 
 }
