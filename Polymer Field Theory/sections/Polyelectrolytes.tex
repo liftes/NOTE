@@ -15,7 +15,41 @@
         \hat{\rho}_{A, e}(\mathbf{r})=\sum_{i=1}^{n_{0}} \int_{0}^{f Z_{0}} \mathrm{d} t c_{i, A}(t) z_{A} e \delta\left(\mathbf{r}-\mathbf{R}_{i}^{0}(t)\right)\\
         \hat{\rho}_{I, e}(\mathbf{r})=\sum_{i=1}^{n_{I}} z_{I} e \delta\left(\mathbf{r}-\mathbf{r}_{i}^{I}\right)
     \end{gather}
-    其中$f$为A组分体积分数，$Z_0$为AB嵌段段数，$Z_C$为离子数，即$N_A=fZ_0,N_B=(1-f)Z_0,N_c=Z_C$。$c_{i,A}(t)$则表示第$i$条聚合物链上的电荷分布。$z_A$为聚合物电荷价数（$z_I$为离子电荷价数）以及$e$表示元电荷量。
+    其中$f$为A组分体积分数，$Z_0$为AB嵌段段数（带电），$Z_C$为中性聚合物段数，即$N_A=fZ_0,N_B=(1-f)Z_0,N_c=Z_C$。$c_{i,A}(t)$则表示第$i$条聚合物链上的电荷分布。$z_A$为聚合物电荷价数（$z_I$为离子电荷价数）以及$e$表示元电荷量。
+
+    因此，除去原有的密度场$\rho$和其共轭场$\omega$之外，在利用不可压缩条件$\sum_{j} \frac{\hat{\rho}_{j}(\mathbf{r})}{\rho_{j 0}}=\sum_{j} \hat{\phi}_{j}(\mathbf{r})=1$进行 Hubbard-Stratonovich transformation 时会引入新的电荷密度场$\rho_e$的共轭场$\psi$。
+
+    类似地，由于单聚合物链/粒子体系的配分函数计算时也要考虑相同的相互作用能，即成键相互作用、非键连相互作用及库仑相互作用，因此自由能$\mathcal{F}[\rho,\rho_e,\omega,\psi]$可以写成与公式\eqref{ziyouneng}相似的形式，即：
+    \begin{align}
+        \begin{split}
+            \frac{F}{\rho_{0} k_{B} T}=& \int d \mathbf{r}\left\{\chi_{A B} \phi_{A}(\mathbf{r}) \phi_{B}(\mathbf{r})+\chi_{A C} \phi_{A}(\mathbf{r}) \phi_{C}(\mathbf{r})+\chi_{B C} \phi_{B}(\mathbf{r}) \phi_{C}(\mathbf{r})\right\} \\
+            &+\int d \mathbf{r}\left\{\chi_{A I} \phi_{A}(\mathbf{r}) \phi_{I}(\mathbf{r})+\chi_{B I} \phi_{B}(\mathbf{r}) \phi_{I}(\mathbf{r})+\chi_{C I} \phi_{C}(\mathbf{r}) \phi_{I}(\mathbf{r})\right\} \\
+            &+V\left(\frac{1}{f Z_{0}} \frac{\rho_{0 A}}{\rho_{0}} \bar{\phi}_{A} \ln \bar{\phi}_{A}+\frac{1}{Z_{c}} \frac{\rho_{0 C}}{\rho_{0}} \bar{\phi}_{C} \ln \bar{\phi}_{C}+\frac{\rho_{0 I}}{\rho_{0}} \bar{\phi}_{I} \ln \bar{\phi}_{I}\right) \\
+            &-\int d \mathbf{r}\left\{\sum_{j} \frac{\rho_{0 j}}{\rho_{0}} \omega_{j}(\mathbf{r}) \phi_{j}(\mathbf{r})\right.\\
+            &\left.+\frac{1}{f Z_{0}} \frac{\rho_{0 A}}{\rho_{0}} \phi_{A}(\mathbf{r}) \ln Q_{0}+\frac{1}{Z_{C}} \frac{\rho_{0 C}}{\rho_{0}} \phi_{C}(\mathbf{r}) \ln Q_{C}+\frac{\rho_{0 I}}{\rho_{0}} \phi_{I}(\mathbf{r}) \ln Q_{I}\right\} \\
+            &+\int d \mathbf{r}\left\{\left[\frac{\rho_{0 A}}{\rho_{0}} p_{A} z_{A} \phi_{A}(\mathbf{r})+\frac{\rho_{0 I}}{\rho_{0}} z_{I} \phi_{I}(\mathbf{r})\right] \varphi(\mathbf{r})-\frac{\kappa^{2}}{2}|\nabla \varphi(\mathbf{r})|^{2}\right\}
+        \end{split}
+    \end{align}
+    其中第一行和第二行的相互作用项描述了系统个组分间的非电相互作用的能量。第三、四、五行则描述了系统中熵的贡献。最后一行描述了库仑相互作用产生的自由能，即由于考虑库伦作用所带来的额外自由能。
+
+    特别明确上述推导成立的近似条件如下：\\
+    (a) 聚电解质带弱电，因此它们可以被描述为高斯链；\\
+    (b) 介电常数$\epsilon $不依赖于空间$\bm{r}$；\\
+    (c) 分子相互作用是短程的，因此 Flory-Huggins 系数$\chi$假设有效，并且hard core interactions 可以通过不可压缩条件引入；\\
+    (d) 仅考虑平均场近似。
+
+\section{RPA}
+    类似地，可以考虑在均相解附近对自由能展开，从而考察系统的相分离稳定性，即进行随机相近似（RPA）。可以得到\upcite{Sun-164}：
+    \begin{align}
+        \frac{\Delta F^{(2)}}{\rho_{0} k_{B} T}=\frac{1}{2} \int \frac{d \mathbf{k}}{(2 \pi)^{2}} \frac{\delta \tilde{\phi}_{A}(\mathbf{k}) \delta \tilde{\phi}_{A}(-\mathbf{k})}{S_{A A}(\mathbf{k})}
+    \end{align}
+    其中PRA散射函数$S_{AA}(\bm{k})$由下式给出（具体细节见文献附录C\upcite{Sun-164}）：
+    \begin{align}
+        \frac{1}{S_{A A}(\mathbf{k})}
+        =\frac{1}{\bar{\phi}_{A} Z_{A}}
+        \left[\frac{1}{g([R_{g}^{A} \mathbf{k}]^{2})}+\frac{C_{A}}{[1+(\lambda \mathbf{k})^{2}]}\right]
+        +\frac{1}{(1-\bar{\phi}_{A}) Z_{C} g([R_{g}^{C} \mathbf{k}]^{2})}-2 \chi_{A C}
+    \end{align}
 
 
 }
